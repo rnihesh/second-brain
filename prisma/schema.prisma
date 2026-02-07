@@ -1,0 +1,118 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../node_modules/.prisma/client"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+// User model with authentication support
+model User {
+  id            String    @id @default(cuid())
+  name          String?
+  email         String?   @unique
+  password      String?   // Hashed password
+  image         String?
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  // Relations
+  knowledgeItems KnowledgeItem[]
+  accounts       Account[]
+  sessions       Session[]
+}
+
+// Knowledge item types
+enum KnowledgeItemType {
+  NOTE
+  LINK
+  INSIGHT
+}
+
+// Main knowledge item model
+model KnowledgeItem {
+  id        String               @id @default(cuid())
+  title     String
+  content   String               @db.Text
+  type      KnowledgeItemType
+  summary   String?              @db.Text
+  sourceUrl String?
+  fileName  String?
+  fileType  String?
+  userId    String
+  createdAt DateTime             @default(now())
+  updatedAt DateTime             @updatedAt
+
+  // Relations
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  tags      Tag[]
+  embedding Embedding?
+
+  // Indexes for common queries
+  @@index([userId])
+  @@index([type])
+  @@index([createdAt])
+}
+
+// Tag model for categorization
+model Tag {
+  id        String    @id @default(cuid())
+  name      String    @unique
+  createdAt DateTime  @default(now())
+
+  // Relations
+  knowledgeItems KnowledgeItem[]
+
+  @@index([name])
+}
+
+// Vector embedding model for semantic search
+model Embedding {
+  id              String    @id @default(cuid())
+  knowledgeItemId String    @unique
+  vector          Float[]
+  model           String
+  createdAt       DateTime  @default(now())
+
+  // Relations
+  knowledgeItem   KnowledgeItem @relation(fields: [knowledgeItemId], references: [id], onDelete: Cascade)
+
+  @@index([knowledgeItemId])
+}
+
+// NextAuth v5 Account model
+model Account {
+  id                 String  @id @default(cuid())
+  userId             String
+  type               String
+  provider           String
+  providerAccountId  String
+  refresh_token      String? @db.Text
+  access_token       String? @db.Text
+  expires_at         Int?
+  token_type         String?
+  scope              String?
+  id_token           String? @db.Text
+  session_state      String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+  @@index([userId])
+}
+
+// NextAuth v5 Session model
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+}
