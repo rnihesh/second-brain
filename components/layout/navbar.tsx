@@ -83,7 +83,7 @@ function Navbar() {
         </Link>
 
         {/* Desktop Nav */}
-        <div className="hidden items-center gap-1 md:flex">
+        <div className="hidden items-center gap-0.5 md:flex">
           {navLinks.map((link) => {
             const isActive = pathname === link.href || pathname?.startsWith(link.href + "/");
             return (
@@ -91,7 +91,7 @@ function Navbar() {
                 key={link.href}
                 href={link.href}
                 className={cn(
-                  "flex items-center gap-2 rounded-lg px-3 py-2 text-sm font-medium transition-colors",
+                  "flex items-center gap-2 rounded-lg px-3.5 py-2 text-sm font-medium transition-colors",
                   isActive
                     ? "bg-accent/10 text-accent"
                     : "text-muted hover:bg-surface hover:text-foreground"
@@ -110,14 +110,17 @@ function Navbar() {
           <button
             type="button"
             onClick={openCommandPalette}
-            className="hidden items-center gap-2 rounded-lg border border-border bg-surface px-3 py-1.5 text-sm text-muted transition-colors hover:border-border-hover hover:text-foreground sm:flex cursor-pointer"
+            className="hidden items-center gap-2 rounded-lg border border-border bg-surface px-3 py-1.5 text-muted transition-colors hover:border-border-hover hover:text-foreground sm:flex cursor-pointer"
           >
-            <Search className="h-4 w-4" />
-            <span>Search...</span>
-            <kbd className="ml-2 rounded bg-surface-hover px-1.5 py-0.5 text-xs text-dim">
+            <Search className="h-3.5 w-3.5" />
+            <span className="text-xs">Search...</span>
+            <kbd className="ml-2 rounded border border-border bg-surface-hover px-1.5 py-0.5 text-[10px] text-dim">
               ⌘K
             </kbd>
           </button>
+
+          {/* Divider */}
+          <div className="hidden h-5 w-px bg-border sm:block" />
 
           {/* Theme toggle */}
           {mounted && (
@@ -143,7 +146,7 @@ function Navbar() {
                 onClick={() => setUserMenuOpen(!userMenuOpen)}
                 className="flex items-center gap-2 rounded-lg px-2 py-1.5 text-sm text-foreground transition-colors hover:bg-surface cursor-pointer"
               >
-                <div className="flex h-7 w-7 items-center justify-center rounded-full bg-accent/20 text-accent overflow-hidden">
+                <div className="flex h-7 w-7 items-center justify-center rounded-full bg-accent/20 text-accent overflow-hidden ring-1 ring-accent/20">
                   {session.user.image ? (
                     <img
                       src={session.user.image}
@@ -157,7 +160,7 @@ function Navbar() {
                 <span className="max-w-[120px] truncate">
                   {session.user.name || session.user.email}
                 </span>
-                <ChevronDown className="h-3.5 w-3.5" />
+                <ChevronDown className={cn("h-3.5 w-3.5 transition-transform", userMenuOpen && "rotate-180")} />
               </button>
 
               <AnimatePresence>
@@ -167,7 +170,7 @@ function Navbar() {
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: -5 }}
                     transition={{ duration: 0.15 }}
-                    className="absolute right-0 mt-2 w-48 rounded-lg border border-border bg-surface py-1"
+                    className="absolute right-0 mt-2 w-48 rounded-xl border border-border bg-surface py-1 shadow-lg shadow-black/10"
                   >
                     <Link
                       href="/profile"
