@@ -14,7 +14,7 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Second Brain | AI-Powered Knowledge System",
+  title: "Nihesh's Second Brain | AI-Powered Knowledge System",
   description:
     "Capture, organize, and query your knowledge with AI. A portable, API-first knowledge management system built with Next.js.",
 };
