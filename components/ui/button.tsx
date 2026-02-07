@@ -6,15 +6,15 @@ import { Loader2 } from "lucide-react";
 
 const variantStyles = {
   default:
-    "bg-[#2a2a2a] text-[#ececec] hover:bg-[#333333] active:bg-[#2a2a2a] border border-[rgba(255,255,255,0.06)]",
+    "bg-surface text-foreground hover:bg-surface-hover active:bg-surface border border-border",
   primary:
-    "bg-[#ececec] text-[#1a1a1a] hover:bg-[#d4d4d4] active:bg-[#c0c0c0]",
+    "bg-foreground text-background hover:bg-foreground/90 active:bg-foreground/80",
   accent:
-    "bg-[#c4a47c] text-[#1a1a1a] hover:bg-[#d4b48c] active:bg-[#b4946c]",
+    "bg-accent text-background hover:bg-accent-hover active:bg-accent",
   outline:
-    "bg-transparent text-[#ececec] border border-[rgba(255,255,255,0.12)] hover:bg-[#2a2a2a] hover:border-[rgba(255,255,255,0.2)]",
+    "bg-transparent text-foreground border border-border-hover hover:bg-surface hover:border-border-hover",
   ghost:
-    "text-[#8a8a8a] hover:bg-[#2a2a2a] hover:text-[#ececec] active:bg-[#333333]",
+    "text-muted hover:bg-surface hover:text-foreground active:bg-surface-hover",
   destructive:
     "bg-[#c47c7c]/10 text-[#c47c7c] hover:bg-[#c47c7c]/20 active:bg-[#c47c7c]/15",
 };
@@ -53,7 +53,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
     if (asChild && React.isValidElement(children)) {
       return React.cloneElement(children as React.ReactElement<Record<string, unknown>>, {
         className: cn(
-          "inline-flex items-center justify-center font-normal transition-colors duration-150 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[rgba(255,255,255,0.25)] focus-visible:ring-offset-2 focus-visible:ring-offset-[#1a1a1a]",
+          "inline-flex items-center justify-center font-normal transition-colors duration-150 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--focus-ring)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--focus-ring-offset)]",
           variantStyles[variant],
           sizeStyles[size],
           isDisabled && "pointer-events-none opacity-50",
@@ -69,7 +69,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
         ref={ref}
         disabled={isDisabled}
         className={cn(
-          "inline-flex items-center justify-center font-normal transition-colors duration-150 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[rgba(255,255,255,0.25)] focus-visible:ring-offset-2 focus-visible:ring-offset-[#1a1a1a] cursor-pointer",
+          "inline-flex items-center justify-center font-normal transition-colors duration-150 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--focus-ring)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--focus-ring-offset)] cursor-pointer",
           variantStyles[variant],
           sizeStyles[size],
           isDisabled && "pointer-events-none opacity-50",

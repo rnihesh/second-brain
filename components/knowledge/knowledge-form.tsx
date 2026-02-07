@@ -184,41 +184,41 @@ function KnowledgeForm({ initialData, availableTags = [] }: KnowledgeFormProps) 
 
       {/* File upload */}
       <div className="space-y-1.5">
-        <label className="block text-sm font-medium text-[#8a8a8a]">
+        <label className="block text-sm font-medium text-muted">
           Attachment
         </label>
         <div
           {...getRootProps()}
           className={cn(
-            "flex cursor-pointer flex-col items-center justify-center rounded-lg border-2 border-dashed border-[rgba(255,255,255,0.06)] bg-[#2a2a2a] px-6 py-8 text-center transition-colors hover:border-[#c4a47c]/50",
-            isDragActive && "border-[#c4a47c] bg-[#c4a47c]/5"
+            "flex cursor-pointer flex-col items-center justify-center rounded-lg border-2 border-dashed border-border bg-surface px-6 py-8 text-center transition-colors hover:border-accent/50",
+            isDragActive && "border-accent bg-accent/5"
           )}
         >
           <input {...getInputProps()} />
           {extracting ? (
             <>
-              <Loader2 className="mb-2 h-6 w-6 text-[#c4a47c] animate-spin" />
-              <p className="text-sm text-[#c4a47c]">Extracting content from {file?.name}...</p>
+              <Loader2 className="mb-2 h-6 w-6 text-accent animate-spin" />
+              <p className="text-sm text-accent">Extracting content from {file?.name}...</p>
             </>
           ) : file ? (
             <>
               {extracted ? (
-                <Check className="mb-2 h-6 w-6 text-[#c4a47c]" />
+                <Check className="mb-2 h-6 w-6 text-accent" />
               ) : (
-                <Upload className="mb-2 h-6 w-6 text-[#8a8a8a]" />
+                <Upload className="mb-2 h-6 w-6 text-muted" />
               )}
-              <p className="text-sm text-[#ececec]">{file.name}</p>
+              <p className="text-sm text-foreground">{file.name}</p>
               {extracted && (
-                <p className="mt-1 text-xs text-[#c4a47c]">Content extracted and added below</p>
+                <p className="mt-1 text-xs text-accent">Content extracted and added below</p>
               )}
             </>
           ) : (
             <>
-              <Upload className="mb-2 h-6 w-6 text-[#8a8a8a]" />
-              <p className="text-sm text-[#ececec]">
+              <Upload className="mb-2 h-6 w-6 text-muted" />
+              <p className="text-sm text-foreground">
                 Drop a file here or click to browse
               </p>
-              <p className="mt-1 text-xs text-[#6b6b6b]">
+              <p className="mt-1 text-xs text-dim">
                 Images, PDF, TXT, MD — content will be extracted by AI
               </p>
             </>
@@ -285,7 +285,7 @@ function ToggleSwitch({
         onClick={() => onChange(!checked)}
         className={cn(
           "relative inline-flex h-5 w-9 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors",
-          checked ? "bg-[#c4a47c]" : "bg-[#333333]"
+          checked ? "bg-accent" : "bg-surface-hover"
         )}
       >
         <span
@@ -295,8 +295,8 @@ function ToggleSwitch({
           )}
         />
       </button>
-      <Icon className="h-4 w-4 text-[#8a8a8a]" />
-      <span className="text-sm text-[#ececec]">{label}</span>
+      <Icon className="h-4 w-4 text-muted" />
+      <span className="text-sm text-foreground">{label}</span>
     </label>
   );
 }

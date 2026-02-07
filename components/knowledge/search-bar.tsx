@@ -54,7 +54,7 @@ function SearchBar({
   return (
     <div className={cn("relative w-full max-w-md", className)}>
       <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
-        <Search className="h-4 w-4 text-[#8a8a8a]" />
+        <Search className="h-4 w-4 text-muted" />
       </div>
       <input
         type="text"
@@ -62,13 +62,13 @@ function SearchBar({
         onChange={handleChange}
         placeholder={placeholder}
         className={cn(
-          "flex h-10 w-full rounded-lg border border-[rgba(255,255,255,0.06)] bg-[#2a2a2a] pl-10 pr-16 text-sm text-[#ececec] placeholder:text-[#6b6b6b] transition-colors duration-200",
-          "focus:border-[rgba(255,255,255,0.2)] focus:outline-none"
+          "flex h-10 w-full rounded-lg border border-border bg-surface pl-10 pr-16 text-sm text-foreground placeholder:text-dim transition-colors duration-200",
+          "focus:border-border-hover focus:outline-none"
         )}
       />
       {onCmdK && (
         <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3">
-          <kbd className="flex items-center gap-0.5 rounded bg-[#333333] px-1.5 py-0.5 text-xs text-[#6b6b6b]">
+          <kbd className="flex items-center gap-0.5 rounded bg-surface-hover px-1.5 py-0.5 text-xs text-dim">
             <Command className="h-3 w-3" />K
           </kbd>
         </div>

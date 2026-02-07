@@ -2,6 +2,7 @@
 
 import React from "react";
 import { useRouter } from "next/navigation";
+import { useTheme } from "next-themes";
 import {
   ReactFlow,
   Background,
@@ -51,18 +52,18 @@ function buildGraph(items: KnowledgeItem[]) {
         <div className="text-center">
           <div
             className="mx-auto mb-1 inline-block rounded-full px-2 py-0.5 text-[10px] font-medium"
-            style={{ backgroundColor: typeColors[item.type], color: "#1a1a1a" }}
+            style={{ backgroundColor: typeColors[item.type], color: "var(--bg)" }}
           >
             {typeLabels[item.type]}
           </div>
-          <div className="max-w-[140px] truncate text-xs font-medium text-[#ececec]">
+          <div className="max-w-[140px] truncate text-xs font-medium text-foreground">
             {item.title}
           </div>
         </div>
       ),
     },
     style: {
-      background: "#2a2a2a",
+      background: "var(--srf)",
       border: `2px solid ${typeColors[item.type]}60`,
       borderRadius: "12px",
       padding: "8px 12px",
@@ -90,8 +91,8 @@ function buildGraph(items: KnowledgeItem[]) {
             opacity: 0.5 + Math.min(0.5, sharedTags.length * 0.15),
           },
           label: sharedTags.map((t) => t.name).join(", "),
-          labelStyle: { fill: "#ececec", fontSize: 10 },
-          labelBgStyle: { fill: "#2a2a2a", fillOpacity: 0.9 },
+          labelStyle: { fill: "var(--fg)", fontSize: 10 },
+          labelBgStyle: { fill: "var(--srf)", fillOpacity: 0.9 },
           animated: true,
         });
       }
@@ -103,6 +104,7 @@ function buildGraph(items: KnowledgeItem[]) {
 
 export default function GraphPage() {
   const router = useRouter();
+  const { resolvedTheme } = useTheme();
   const [nodes, setNodes, onNodesChange] = useNodesState<Node>([]);
   const [edges, setEdges, onEdgesChange] = useEdgesState<Edge>([]);
   const [loading, setLoading] = React.useState(true);
@@ -137,8 +139,8 @@ export default function GraphPage() {
   if (loading) {
     return (
       <div className="flex h-[calc(100vh-4rem)] items-center justify-center">
-        <div className="flex flex-col items-center gap-3 text-[#8a8a8a]">
-          <Loader2 className="h-8 w-8 animate-spin text-[#c4a47c]" />
+        <div className="flex flex-col items-center gap-3 text-muted">
+          <Loader2 className="h-8 w-8 animate-spin text-accent" />
           <p className="text-sm">Loading knowledge graph...</p>
         </div>
       </div>
@@ -149,8 +151,8 @@ export default function GraphPage() {
     return (
       <div className="flex h-[calc(100vh-4rem)] items-center justify-center">
         <div className="text-center max-w-sm">
-          <p className="text-[#ececec] text-sm font-medium mb-2">No knowledge items yet</p>
-          <p className="text-[#6b6b6b] text-xs leading-relaxed">
+          <p className="text-foreground text-sm font-medium mb-2">No knowledge items yet</p>
+          <p className="text-dim text-xs leading-relaxed">
             Add notes, links, and insights from the Capture page. When items share the same tags, they&apos;ll be connected here visually.
           </p>
         </div>
@@ -169,29 +171,15 @@ export default function GraphPage() {
         fitView
         fitViewOptions={{ padding: 0.3 }}
         proOptions={{ hideAttribution: true }}
-        style={{ background: "#1a1a1a" }}
+        colorMode={resolvedTheme === "dark" ? "dark" : "light"}
       >
-        <Background color="#333333" gap={32} size={1} />
-        <Controls
-          style={{
-            backgroundColor: "#2a2a2a",
-            border: "1px solid rgba(255,255,255,0.06)",
-            borderRadius: "8px",
-          }}
-        />
-        <MiniMap
-          nodeColor={() => "#c4a47c"}
-          style={{
-            backgroundColor: "#2a2a2a",
-            border: "1px solid rgba(255,255,255,0.06)",
-            borderRadius: "8px",
-          }}
-          maskColor="rgba(26, 26, 26, 0.7)"
-        />
+        <Background gap={32} size={1} />
+        <Controls position="top-left" />
+        <MiniMap nodeColor={() => "#c4a47c"} />
       </ReactFlow>
 
       {/* Legend */}
-      <div className="absolute bottom-4 left-4 rounded-lg border border-[rgba(255,255,255,0.06)] bg-[#2a2a2a] px-4 py-3">
+      <div className="absolute bottom-4 left-4 z-10 rounded-lg border border-border bg-surface px-4 py-3">
         <div className="flex items-center gap-4 text-xs mb-2">
           {Object.entries(typeLabels).map(([key, label]) => (
             <div key={key} className="flex items-center gap-1.5">
@@ -199,16 +187,16 @@ export default function GraphPage() {
                 className="h-2.5 w-2.5 rounded-full"
                 style={{ backgroundColor: typeColors[key as KnowledgeType] }}
               />
-              <span className="text-[#8a8a8a]">{label}</span>
+              <span className="text-muted">{label}</span>
             </div>
           ))}
         </div>
-        <div className="flex items-center gap-2 text-xs text-[#6b6b6b]">
-          <div className="h-px w-4 bg-[#c4a47c]" />
+        <div className="flex items-center gap-2 text-xs text-dim">
+          <div className="h-px w-4 bg-accent" />
           <span>Connected by shared tags</span>
         </div>
         {edges.length === 0 && nodes.length > 0 && (
-          <p className="mt-2 text-[10px] text-[#c4a47c]">
+          <p className="mt-2 text-[10px] text-accent">
             No connections yet — add the same tag to multiple items to link them
           </p>
         )}

@@ -18,6 +18,26 @@ export function truncate(str: string, length: number) {
   return str.slice(0, length) + "...";
 }
 
+export function stripMarkdown(str: string) {
+  return str
+    .replace(/#{1,6}\s+/g, "")          // headings
+    .replace(/\*\*(.+?)\*\*/g, "$1")    // bold
+    .replace(/\*(.+?)\*/g, "$1")        // italic
+    .replace(/__(.+?)__/g, "$1")        // bold alt
+    .replace(/_(.+?)_/g, "$1")          // italic alt
+    .replace(/~~(.+?)~~/g, "$1")        // strikethrough
+    .replace(/`{3}[\s\S]*?`{3}/g, "")   // code blocks
+    .replace(/`(.+?)`/g, "$1")          // inline code
+    .replace(/\[([^\]]+)\]\([^)]+\)/g, "$1") // links
+    .replace(/!\[([^\]]*)\]\([^)]+\)/g, "$1") // images
+    .replace(/^>\s+/gm, "")             // blockquotes
+    .replace(/^-{3,}/gm, "")            // horizontal rules
+    .replace(/^\s*[-*+]\s+/gm, "")      // unordered lists
+    .replace(/^\s*\d+\.\s+/gm, "")      // ordered lists
+    .replace(/\n{2,}/g, " ")            // collapse newlines
+    .trim();
+}
+
 export function slugify(str: string) {
   return str
     .toLowerCase()

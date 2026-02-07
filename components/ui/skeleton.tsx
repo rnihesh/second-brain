@@ -10,7 +10,7 @@ function Skeleton({ className, width, height, style, ...props }: SkeletonProps) 
   return (
     <div
       className={cn(
-        "animate-pulse rounded-lg bg-[rgba(255,255,255,0.06)]",
+        "animate-pulse rounded-lg bg-border",
         className
       )}
       style={{ width, height, ...style }}
@@ -23,7 +23,7 @@ function SkeletonCard({ className }: { className?: string }) {
   return (
     <div
       className={cn(
-        "rounded-xl border border-[rgba(255,255,255,0.06)] bg-[#2a2a2a] p-6 space-y-4",
+        "rounded-xl border border-border bg-surface p-6 space-y-4",
         className
       )}
     >

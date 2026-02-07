@@ -114,27 +114,27 @@ export function CommandPalette() {
             className="fixed left-1/2 top-[20%] z-50 w-full max-w-lg -translate-x-1/2"
           >
             <Command
-              className="rounded-xl border border-[rgba(255,255,255,0.06)] bg-[#2a2a2a] overflow-hidden"
+              className="rounded-xl border border-border bg-surface overflow-hidden"
               shouldFilter={false}
             >
               {/* Input */}
-              <div className="flex items-center gap-3 border-b border-[rgba(255,255,255,0.06)] px-4">
-                <Search className="h-4 w-4 shrink-0 text-[#8a8a8a]" />
+              <div className="flex items-center gap-3 border-b border-border px-4">
+                <Search className="h-4 w-4 shrink-0 text-muted" />
                 <Command.Input
                   ref={inputRef}
                   value={search}
                   onValueChange={setSearch}
                   placeholder="Search knowledge, navigate, or ask AI..."
-                  className="h-12 w-full bg-transparent text-sm text-[#ececec] placeholder:text-[#6b6b6b] outline-none"
+                  className="h-12 w-full bg-transparent text-sm text-foreground placeholder:text-dim outline-none"
                 />
-                <kbd className="shrink-0 rounded bg-[#333333] px-1.5 py-0.5 text-[10px] text-[#6b6b6b]">
+                <kbd className="shrink-0 rounded bg-surface-hover px-1.5 py-0.5 text-[10px] text-dim">
                   ESC
                 </kbd>
               </div>
 
               {/* Results */}
               <Command.List className="max-h-80 overflow-y-auto p-2">
-                <Command.Empty className="px-4 py-8 text-center text-sm text-[#6b6b6b]">
+                <Command.Empty className="px-4 py-8 text-center text-sm text-dim">
                   {loading ? "Searching..." : "No results found."}
                 </Command.Empty>
 
@@ -142,7 +142,7 @@ export function CommandPalette() {
                 {results.length > 0 && (
                   <Command.Group
                     heading="Knowledge"
-                    className="[&_[cmdk-group-heading]]:px-2 [&_[cmdk-group-heading]]:py-1.5 [&_[cmdk-group-heading]]:text-xs [&_[cmdk-group-heading]]:font-medium [&_[cmdk-group-heading]]:text-[#6b6b6b]"
+                    className="[&_[cmdk-group-heading]]:px-2 [&_[cmdk-group-heading]]:py-1.5 [&_[cmdk-group-heading]]:text-xs [&_[cmdk-group-heading]]:font-medium [&_[cmdk-group-heading]]:text-dim"
                   >
                     {results.map((item) => {
                       const TypeIcon = typeIcons[item.type] || NoteIcon;
@@ -153,11 +153,11 @@ export function CommandPalette() {
                           onSelect={() =>
                             runAction(() => router.push(`/item/${item.id}`))
                           }
-                          className="flex cursor-pointer items-center gap-3 rounded-lg px-3 py-2.5 text-sm text-[#ececec] transition-colors data-[selected=true]:bg-[#333333]"
+                          className="flex cursor-pointer items-center gap-3 rounded-lg px-3 py-2.5 text-sm text-foreground transition-colors data-[selected=true]:bg-surface-hover"
                         >
-                          <TypeIcon className="h-4 w-4 shrink-0 text-[#c4a47c]" />
+                          <TypeIcon className="h-4 w-4 shrink-0 text-accent" />
                           <span className="truncate">{item.title}</span>
-                          <span className="ml-auto text-xs text-[#6b6b6b]">
+                          <span className="ml-auto text-xs text-dim">
                             {item.type.charAt(0) + item.type.slice(1).toLowerCase()}
                           </span>
                         </Command.Item>
@@ -171,57 +171,57 @@ export function CommandPalette() {
                   <>
                     <Command.Group
                       heading="Navigation"
-                      className="[&_[cmdk-group-heading]]:px-2 [&_[cmdk-group-heading]]:py-1.5 [&_[cmdk-group-heading]]:text-xs [&_[cmdk-group-heading]]:font-medium [&_[cmdk-group-heading]]:text-[#6b6b6b]"
+                      className="[&_[cmdk-group-heading]]:px-2 [&_[cmdk-group-heading]]:py-1.5 [&_[cmdk-group-heading]]:text-xs [&_[cmdk-group-heading]]:font-medium [&_[cmdk-group-heading]]:text-dim"
                     >
                       <Command.Item
                         onSelect={() =>
                           runAction(() => router.push("/dashboard"))
                         }
-                        className="flex cursor-pointer items-center gap-3 rounded-lg px-3 py-2.5 text-sm text-[#ececec] transition-colors data-[selected=true]:bg-[#333333]"
+                        className="flex cursor-pointer items-center gap-3 rounded-lg px-3 py-2.5 text-sm text-foreground transition-colors data-[selected=true]:bg-surface-hover"
                       >
-                        <LayoutDashboard className="h-4 w-4 text-[#8a8a8a]" />
+                        <LayoutDashboard className="h-4 w-4 text-muted" />
                         Dashboard
                       </Command.Item>
                       <Command.Item
                         onSelect={() =>
                           runAction(() => router.push("/capture"))
                         }
-                        className="flex cursor-pointer items-center gap-3 rounded-lg px-3 py-2.5 text-sm text-[#ececec] transition-colors data-[selected=true]:bg-[#333333]"
+                        className="flex cursor-pointer items-center gap-3 rounded-lg px-3 py-2.5 text-sm text-foreground transition-colors data-[selected=true]:bg-surface-hover"
                       >
-                        <PenLine className="h-4 w-4 text-[#8a8a8a]" />
+                        <PenLine className="h-4 w-4 text-muted" />
                         Capture
                       </Command.Item>
                       <Command.Item
                         onSelect={() =>
                           runAction(() => router.push("/graph"))
                         }
-                        className="flex cursor-pointer items-center gap-3 rounded-lg px-3 py-2.5 text-sm text-[#ececec] transition-colors data-[selected=true]:bg-[#333333]"
+                        className="flex cursor-pointer items-center gap-3 rounded-lg px-3 py-2.5 text-sm text-foreground transition-colors data-[selected=true]:bg-surface-hover"
                       >
-                        <GitFork className="h-4 w-4 text-[#8a8a8a]" />
+                        <GitFork className="h-4 w-4 text-muted" />
                         Graph
                       </Command.Item>
                       <Command.Item
                         onSelect={() =>
                           runAction(() => router.push("/docs"))
                         }
-                        className="flex cursor-pointer items-center gap-3 rounded-lg px-3 py-2.5 text-sm text-[#ececec] transition-colors data-[selected=true]:bg-[#333333]"
+                        className="flex cursor-pointer items-center gap-3 rounded-lg px-3 py-2.5 text-sm text-foreground transition-colors data-[selected=true]:bg-surface-hover"
                       >
-                        <FileText className="h-4 w-4 text-[#8a8a8a]" />
+                        <FileText className="h-4 w-4 text-muted" />
                         Docs
                       </Command.Item>
                     </Command.Group>
 
                     <Command.Group
                       heading="Actions"
-                      className="[&_[cmdk-group-heading]]:px-2 [&_[cmdk-group-heading]]:py-1.5 [&_[cmdk-group-heading]]:text-xs [&_[cmdk-group-heading]]:font-medium [&_[cmdk-group-heading]]:text-[#6b6b6b]"
+                      className="[&_[cmdk-group-heading]]:px-2 [&_[cmdk-group-heading]]:py-1.5 [&_[cmdk-group-heading]]:text-xs [&_[cmdk-group-heading]]:font-medium [&_[cmdk-group-heading]]:text-dim"
                     >
                       <Command.Item
                         onSelect={() =>
                           runAction(() => router.push("/dashboard?ai=open"))
                         }
-                        className="flex cursor-pointer items-center gap-3 rounded-lg px-3 py-2.5 text-sm text-[#ececec] transition-colors data-[selected=true]:bg-[#333333]"
+                        className="flex cursor-pointer items-center gap-3 rounded-lg px-3 py-2.5 text-sm text-foreground transition-colors data-[selected=true]:bg-surface-hover"
                       >
-                        <Sparkles className="h-4 w-4 text-[#c4a47c]" />
+                        <Sparkles className="h-4 w-4 text-accent" />
                         Ask AI
                       </Command.Item>
                     </Command.Group>

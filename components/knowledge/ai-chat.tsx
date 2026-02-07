@@ -6,6 +6,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Send, Bot, User, Loader2, ExternalLink } from "lucide-react";
 import type { QueryResponse } from "@/types";
 import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
 
 interface Message {
   id: string;
@@ -81,7 +82,7 @@ function AiChat({ className }: { className?: string }) {
   return (
     <div
       className={cn(
-        "flex h-[600px] flex-col rounded-xl border border-[rgba(255,255,255,0.06)] bg-[#2a2a2a]",
+        "flex h-[600px] flex-col rounded-xl border border-border bg-surface",
         className
       )}
     >
@@ -92,11 +93,11 @@ function AiChat({ className }: { className?: string }) {
       >
         {messages.length === 0 && (
           <div className="flex h-full flex-col items-center justify-center text-center">
-            <Bot className="mb-3 h-10 w-10 text-[#6b6b6b]" />
-            <p className="text-sm text-[#8a8a8a]">
+            <Bot className="mb-3 h-10 w-10 text-dim" />
+            <p className="text-sm text-muted">
               Ask me anything about your knowledge base.
             </p>
-            <p className="mt-1 text-xs text-[#6b6b6b]">
+            <p className="mt-1 text-xs text-dim">
               I&apos;ll search your notes, links, and insights to find answers.
             </p>
           </div>
@@ -119,8 +120,8 @@ function AiChat({ className }: { className?: string }) {
                 className={cn(
                   "flex h-7 w-7 shrink-0 items-center justify-center rounded-full",
                   msg.role === "user"
-                    ? "bg-[#c4a47c]/20 text-[#c4a47c]"
-                    : "bg-[#333333] text-[#8a8a8a]"
+                    ? "bg-accent/20 text-accent"
+                    : "bg-surface-hover text-muted"
                 )}
               >
                 {msg.role === "user" ? (
@@ -135,18 +136,18 @@ function AiChat({ className }: { className?: string }) {
                 className={cn(
                   "max-w-[80%] rounded-xl px-4 py-2.5",
                   msg.role === "user"
-                    ? "bg-[#c4a47c]/10 text-[#ececec]"
-                    : "bg-[#333333] text-[#ececec]"
+                    ? "bg-accent/10 text-foreground"
+                    : "bg-surface-hover text-foreground"
                 )}
               >
-                <div className="prose prose-sm prose-invert max-w-none [&>p]:mb-2 [&>p:last-child]:mb-0">
-                  <ReactMarkdown>{msg.content}</ReactMarkdown>
+                <div className="prose prose-sm prose-invert max-w-none [&>p]:mb-2 [&>p:last-child]:mb-0 prose-ul:list-disc prose-ul:pl-4 prose-ol:list-decimal prose-ol:pl-4 prose-li:my-0.5 prose-code:rounded prose-code:bg-background/50 prose-code:px-1 prose-code:py-0.5 prose-code:text-accent prose-code:text-xs prose-code:before:content-none prose-code:after:content-none prose-pre:bg-background prose-pre:rounded-lg prose-pre:text-foreground prose-a:text-accent prose-a:underline">
+                  <ReactMarkdown remarkPlugins={[remarkGfm]}>{msg.content}</ReactMarkdown>
                 </div>
 
                 {/* Sources */}
                 {msg.sources && msg.sources.length > 0 && (
-                  <div className="mt-3 border-t border-[rgba(255,255,255,0.06)] pt-2">
-                    <p className="mb-1.5 text-xs font-medium text-[#8a8a8a]">
+                  <div className="mt-3 border-t border-border pt-2">
+                    <p className="mb-1.5 text-xs font-medium text-muted">
                       Sources
                     </p>
                     <div className="space-y-1">
@@ -154,7 +155,7 @@ function AiChat({ className }: { className?: string }) {
                         <a
                           key={source.id}
                           href={`/item/${source.id}`}
-                          className="flex items-center gap-1.5 rounded-md px-2 py-1 text-xs text-[#c4a47c] hover:bg-[rgba(255,255,255,0.06)] transition-colors"
+                          className="flex items-center gap-1.5 rounded-md px-2 py-1 text-xs text-accent hover:bg-border transition-colors"
                         >
                           <ExternalLink className="h-3 w-3 shrink-0" />
                           <span className="truncate">{source.title}</span>
@@ -175,19 +176,19 @@ function AiChat({ className }: { className?: string }) {
             animate={{ opacity: 1 }}
             className="flex items-center gap-3"
           >
-            <div className="flex h-7 w-7 items-center justify-center rounded-full bg-[#333333] text-[#8a8a8a]">
+            <div className="flex h-7 w-7 items-center justify-center rounded-full bg-surface-hover text-muted">
               <Bot className="h-4 w-4" />
             </div>
-            <div className="flex items-center gap-1.5 rounded-xl bg-[#333333] px-4 py-3">
-              <Loader2 className="h-4 w-4 animate-spin text-[#c4a47c]" />
-              <span className="text-xs text-[#8a8a8a]">Thinking...</span>
+            <div className="flex items-center gap-1.5 rounded-xl bg-surface-hover px-4 py-3">
+              <Loader2 className="h-4 w-4 animate-spin text-accent" />
+              <span className="text-xs text-muted">Thinking...</span>
             </div>
           </motion.div>
         )}
       </div>
 
       {/* Input */}
-      <div className="border-t border-[rgba(255,255,255,0.06)] p-4">
+      <div className="border-t border-border p-4">
         <div className="flex items-center gap-2">
           <input
             ref={inputRef}
@@ -198,8 +199,8 @@ function AiChat({ className }: { className?: string }) {
             placeholder="Ask a question..."
             disabled={loading}
             className={cn(
-              "flex-1 rounded-lg border border-[rgba(255,255,255,0.06)] bg-[#1a1a1a] px-4 py-2.5 text-sm text-[#ececec] placeholder:text-[#6b6b6b] transition-colors",
-              "focus:border-[rgba(255,255,255,0.2)] focus:outline-none",
+              "flex-1 rounded-lg border border-border bg-background px-4 py-2.5 text-sm text-foreground placeholder:text-dim transition-colors",
+              "focus:border-border-hover focus:outline-none",
               "disabled:opacity-50"
             )}
           />
@@ -208,8 +209,8 @@ function AiChat({ className }: { className?: string }) {
             onClick={sendMessage}
             disabled={loading || !input.trim()}
             className={cn(
-              "flex h-10 w-10 items-center justify-center rounded-lg bg-[#c4a47c] text-[#1a1a1a] transition-colors cursor-pointer",
-              "hover:bg-[#d4b48c] disabled:opacity-50 disabled:cursor-not-allowed"
+              "flex h-10 w-10 items-center justify-center rounded-lg bg-accent text-background transition-colors cursor-pointer",
+              "hover:bg-accent-hover disabled:opacity-50 disabled:cursor-not-allowed"
             )}
           >
             <Send className="h-4 w-4" />

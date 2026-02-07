@@ -4,6 +4,7 @@ import React from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useSession, signOut } from "next-auth/react";
+import { useTheme } from "next-themes";
 import { cn } from "@/lib/utils";
 import { motion, AnimatePresence } from "framer-motion";
 import {
@@ -18,6 +19,8 @@ import {
   User,
   LogOut,
   ChevronDown,
+  Sun,
+  Moon,
 } from "lucide-react";
 
 const navLinks = [
@@ -30,9 +33,15 @@ const navLinks = [
 function Navbar() {
   const pathname = usePathname();
   const { data: session } = useSession();
+  const { theme, setTheme } = useTheme();
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const [userMenuOpen, setUserMenuOpen] = React.useState(false);
+  const [mounted, setMounted] = React.useState(false);
   const userMenuRef = React.useRef<HTMLDivElement>(null);
+
+  React.useEffect(() => {
+    setMounted(true);
+  }, []);
 
   React.useEffect(() => {
     const handleClickOutside = (e: MouseEvent) => {
@@ -57,15 +66,19 @@ function Navbar() {
     );
   };
 
+  const toggleTheme = () => {
+    setTheme(theme === "dark" ? "light" : "dark");
+  };
+
   return (
-    <nav className="sticky top-0 z-40 border-b border-[rgba(255,255,255,0.06)] bg-[#1a1a1a]/80 backdrop-blur-xl">
+    <nav className="sticky top-0 z-40 border-b border-border bg-background/80 backdrop-blur-xl">
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6">
         {/* Logo */}
         <Link
           href="/dashboard"
-          className="flex items-center gap-2 text-[#ececec] transition-colors hover:text-[#c4a47c]"
+          className="flex items-center gap-2 text-foreground transition-colors hover:text-accent"
         >
-          <Brain className="h-6 w-6 text-[#c4a47c]" />
+          <Brain className="h-6 w-6 text-accent" />
           <span className="text-lg font-bold">Second Brain</span>
         </Link>
 
@@ -80,8 +93,8 @@ function Navbar() {
                 className={cn(
                   "flex items-center gap-2 rounded-lg px-3 py-2 text-sm font-medium transition-colors",
                   isActive
-                    ? "bg-[#c4a47c]/10 text-[#c4a47c]"
-                    : "text-[#8a8a8a] hover:bg-[#2a2a2a] hover:text-[#ececec]"
+                    ? "bg-accent/10 text-accent"
+                    : "text-muted hover:bg-surface hover:text-foreground"
                 )}
               >
                 <link.icon className="h-4 w-4" />
@@ -97,14 +110,30 @@ function Navbar() {
           <button
             type="button"
             onClick={openCommandPalette}
-            className="hidden items-center gap-2 rounded-lg border border-[rgba(255,255,255,0.06)] bg-[#2a2a2a] px-3 py-1.5 text-sm text-[#8a8a8a] transition-colors hover:border-[rgba(255,255,255,0.12)] hover:text-[#ececec] sm:flex cursor-pointer"
+            className="hidden items-center gap-2 rounded-lg border border-border bg-surface px-3 py-1.5 text-sm text-muted transition-colors hover:border-border-hover hover:text-foreground sm:flex cursor-pointer"
           >
             <Search className="h-4 w-4" />
             <span>Search...</span>
-            <kbd className="ml-2 rounded bg-[#333333] px-1.5 py-0.5 text-xs text-[#6b6b6b]">
+            <kbd className="ml-2 rounded bg-surface-hover px-1.5 py-0.5 text-xs text-dim">
               ⌘K
             </kbd>
           </button>
+
+          {/* Theme toggle */}
+          {mounted && (
+            <button
+              type="button"
+              onClick={toggleTheme}
+              className="rounded-lg p-2 text-muted transition-colors hover:bg-surface hover:text-foreground cursor-pointer"
+              aria-label="Toggle theme"
+            >
+              {theme === "dark" ? (
+                <Sun className="h-4 w-4" />
+              ) : (
+                <Moon className="h-4 w-4" />
+              )}
+            </button>
+          )}
 
           {/* User menu (logged in) */}
           {session?.user ? (
@@ -112,9 +141,9 @@ function Navbar() {
               <button
                 type="button"
                 onClick={() => setUserMenuOpen(!userMenuOpen)}
-                className="flex items-center gap-2 rounded-lg px-2 py-1.5 text-sm text-[#ececec] transition-colors hover:bg-[#2a2a2a] cursor-pointer"
+                className="flex items-center gap-2 rounded-lg px-2 py-1.5 text-sm text-foreground transition-colors hover:bg-surface cursor-pointer"
               >
-                <div className="flex h-7 w-7 items-center justify-center rounded-full bg-[#c4a47c]/20 text-[#c4a47c]">
+                <div className="flex h-7 w-7 items-center justify-center rounded-full bg-accent/20 text-accent">
                   <User className="h-4 w-4" />
                 </div>
                 <span className="max-w-[120px] truncate">
@@ -130,11 +159,11 @@ function Navbar() {
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: -5 }}
                     transition={{ duration: 0.15 }}
-                    className="absolute right-0 mt-2 w-48 rounded-lg border border-[rgba(255,255,255,0.06)] bg-[#2a2a2a] py-1"
+                    className="absolute right-0 mt-2 w-48 rounded-lg border border-border bg-surface py-1"
                   >
                     <Link
                       href="/profile"
-                      className="flex items-center gap-2 px-3 py-2 text-sm text-[#ececec] hover:bg-[#333333] transition-colors"
+                      className="flex items-center gap-2 px-3 py-2 text-sm text-foreground hover:bg-surface-hover transition-colors"
                     >
                       <User className="h-4 w-4" />
                       Profile
@@ -142,7 +171,7 @@ function Navbar() {
                     <button
                       type="button"
                       onClick={() => signOut()}
-                      className="flex w-full items-center gap-2 px-3 py-2 text-sm text-[#ececec] hover:bg-[#333333] transition-colors cursor-pointer"
+                      className="flex w-full items-center gap-2 px-3 py-2 text-sm text-foreground hover:bg-surface-hover transition-colors cursor-pointer"
                     >
                       <LogOut className="h-4 w-4" />
                       Sign Out
@@ -156,13 +185,13 @@ function Navbar() {
             <div className="hidden items-center gap-2 md:flex">
               <Link
                 href="/auth/signin"
-                className="rounded-lg px-3 py-1.5 text-sm font-medium text-[#8a8a8a] transition-colors hover:text-[#ececec]"
+                className="rounded-lg px-3 py-1.5 text-sm font-medium text-muted transition-colors hover:text-foreground"
               >
                 Sign In
               </Link>
               <Link
                 href="/auth/signup"
-                className="rounded-lg bg-[#c4a47c] px-3 py-1.5 text-sm font-medium text-[#1a1a1a] transition-colors hover:bg-[#d4b48c]"
+                className="rounded-lg bg-accent px-3 py-1.5 text-sm font-medium text-background transition-colors hover:bg-accent-hover"
               >
                 Sign Up
               </Link>
@@ -173,7 +202,7 @@ function Navbar() {
           <button
             type="button"
             onClick={() => setMobileOpen(!mobileOpen)}
-            className="rounded-lg p-2 text-[#8a8a8a] hover:bg-[#2a2a2a] hover:text-[#ececec] md:hidden cursor-pointer"
+            className="rounded-lg p-2 text-muted hover:bg-surface hover:text-foreground md:hidden cursor-pointer"
           >
             {mobileOpen ? (
               <X className="h-5 w-5" />
@@ -192,7 +221,7 @@ function Navbar() {
             animate={{ height: "auto", opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
             transition={{ duration: 0.2 }}
-            className="overflow-hidden border-t border-[rgba(255,255,255,0.06)] md:hidden"
+            className="overflow-hidden border-t border-border md:hidden"
           >
             <div className="space-y-1 px-4 py-3">
               {navLinks.map((link) => {
@@ -205,8 +234,8 @@ function Navbar() {
                     className={cn(
                       "flex items-center gap-2 rounded-lg px-3 py-2.5 text-sm font-medium transition-colors",
                       isActive
-                        ? "bg-[#c4a47c]/10 text-[#c4a47c]"
-                        : "text-[#8a8a8a] hover:bg-[#2a2a2a] hover:text-[#ececec]"
+                        ? "bg-accent/10 text-accent"
+                        : "text-muted hover:bg-surface hover:text-foreground"
                     )}
                   >
                     <link.icon className="h-4 w-4" />
@@ -214,12 +243,12 @@ function Navbar() {
                   </Link>
                 );
               })}
-              <div className="my-2 border-t border-[rgba(255,255,255,0.06)]" />
+              <div className="my-2 border-t border-border" />
               {session?.user ? (
                 <>
                   <Link
                     href="/profile"
-                    className="flex items-center gap-2 rounded-lg px-3 py-2.5 text-sm text-[#8a8a8a] hover:bg-[#2a2a2a] hover:text-[#ececec] transition-colors"
+                    className="flex items-center gap-2 rounded-lg px-3 py-2.5 text-sm text-muted hover:bg-surface hover:text-foreground transition-colors"
                   >
                     <User className="h-4 w-4" />
                     Profile
@@ -227,7 +256,7 @@ function Navbar() {
                   <button
                     type="button"
                     onClick={() => signOut()}
-                    className="flex w-full items-center gap-2 rounded-lg px-3 py-2.5 text-sm text-[#8a8a8a] hover:bg-[#2a2a2a] hover:text-[#ececec] transition-colors cursor-pointer"
+                    className="flex w-full items-center gap-2 rounded-lg px-3 py-2.5 text-sm text-muted hover:bg-surface hover:text-foreground transition-colors cursor-pointer"
                   >
                     <LogOut className="h-4 w-4" />
                     Sign Out
@@ -237,14 +266,14 @@ function Navbar() {
                 <>
                   <Link
                     href="/auth/signin"
-                    className="flex items-center gap-2 rounded-lg px-3 py-2.5 text-sm text-[#8a8a8a] hover:bg-[#2a2a2a] hover:text-[#ececec] transition-colors"
+                    className="flex items-center gap-2 rounded-lg px-3 py-2.5 text-sm text-muted hover:bg-surface hover:text-foreground transition-colors"
                   >
                     <User className="h-4 w-4" />
                     Sign In
                   </Link>
                   <Link
                     href="/auth/signup"
-                    className="flex items-center gap-2 rounded-lg px-3 py-2.5 text-sm font-medium text-[#c4a47c] hover:bg-[#2a2a2a] transition-colors"
+                    className="flex items-center gap-2 rounded-lg px-3 py-2.5 text-sm font-medium text-accent hover:bg-surface transition-colors"
                   >
                     <User className="h-4 w-4" />
                     Sign Up

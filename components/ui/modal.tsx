@@ -60,20 +60,20 @@ function Modal({
             exit={{ opacity: 0, scale: 0.96 }}
             transition={{ duration: 0.15, ease: "easeOut" }}
             className={cn(
-              "relative w-full rounded-xl border border-[rgba(255,255,255,0.06)] bg-[#2a2a2a]",
+              "relative w-full rounded-xl border border-border bg-surface",
               sizeStyles[size],
               className
             )}
           >
             {title && (
-              <div className="flex items-center justify-between border-b border-[rgba(255,255,255,0.06)] px-6 py-4">
-                <h2 className="text-lg font-light text-[#ececec]">
+              <div className="flex items-center justify-between border-b border-border px-6 py-4">
+                <h2 className="text-lg font-light text-foreground">
                   {title}
                 </h2>
                 <button
                   type="button"
                   onClick={onClose}
-                  className="rounded-lg p-1.5 text-[#6b6b6b] hover:bg-[#333333] hover:text-[#ececec] transition-colors duration-150 cursor-pointer"
+                  className="rounded-lg p-1.5 text-dim hover:bg-surface-hover hover:text-foreground transition-colors duration-150 cursor-pointer"
                 >
                   <X className="h-5 w-5" />
                 </button>
@@ -83,7 +83,7 @@ function Modal({
               <button
                 type="button"
                 onClick={onClose}
-                className="absolute right-4 top-4 rounded-lg p-1.5 text-[#6b6b6b] hover:bg-[#333333] hover:text-[#ececec] transition-colors duration-150 cursor-pointer"
+                className="absolute right-4 top-4 rounded-lg p-1.5 text-dim hover:bg-surface-hover hover:text-foreground transition-colors duration-150 cursor-pointer"
               >
                 <X className="h-5 w-5" />
               </button>

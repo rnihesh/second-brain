@@ -26,7 +26,7 @@ const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
         {label && (
           <label
             htmlFor={selectId}
-            className="block text-sm font-normal text-[#8a8a8a]"
+            className="block text-sm font-normal text-muted"
           >
             {label}
           </label>
@@ -36,8 +36,8 @@ const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
             ref={ref}
             id={selectId}
             className={cn(
-              "flex h-10 w-full appearance-none rounded-lg border border-[rgba(255,255,255,0.06)] bg-[#2a2a2a] px-3 py-2 pr-10 text-sm text-[#ececec] transition-colors duration-150 ease-out",
-              "focus:border-[rgba(255,255,255,0.2)] focus:outline-none",
+              "flex h-10 w-full appearance-none rounded-lg border border-border bg-surface px-3 py-2 pr-10 text-sm text-foreground transition-colors duration-150 ease-out",
+              "focus:border-border-hover focus:outline-none",
               "disabled:cursor-not-allowed disabled:opacity-50",
               error && "border-[#c47c7c] focus:border-[#c47c7c]",
               className
@@ -56,7 +56,7 @@ const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
             ))}
           </select>
           <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3">
-            <ChevronDown className="h-4 w-4 text-[#6b6b6b]" />
+            <ChevronDown className="h-4 w-4 text-dim" />
           </div>
         </div>
         {error && <p className="text-xs text-[#c47c7c]">{error}</p>}

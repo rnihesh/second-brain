@@ -1,18 +1,54 @@
 @import "tailwindcss";
 
 @theme inline {
-  --color-background: #1a1a1a;
-  --color-foreground: #ececec;
-  --color-surface: #2a2a2a;
-  --color-surface-hover: #333333;
-  --color-border: rgba(255, 255, 255, 0.06);
-  --color-border-hover: rgba(255, 255, 255, 0.12);
-  --color-muted: #8a8a8a;
-  --color-dim: #6b6b6b;
-  --color-accent: #c4a47c;
-  --color-accent-hover: #d4b48c;
+  --color-background: var(--bg);
+  --color-foreground: var(--fg);
+  --color-surface: var(--srf);
+  --color-surface-hover: var(--srf-h);
+  --color-border: var(--bdr);
+  --color-border-hover: var(--bdr-h);
+  --color-muted: var(--mtd);
+  --color-dim: var(--dm);
+  --color-accent: var(--acc);
+  --color-accent-hover: var(--acc-h);
   --font-sans: var(--font-inter);
   --font-mono: var(--font-jetbrains-mono);
+}
+
+:root {
+  --bg: #1a1a1a;
+  --fg: #ececec;
+  --srf: #2a2a2a;
+  --srf-h: #333333;
+  --bdr: rgba(255, 255, 255, 0.06);
+  --bdr-h: rgba(255, 255, 255, 0.12);
+  --mtd: #8a8a8a;
+  --dm: #6b6b6b;
+  --acc: #c4a47c;
+  --acc-h: #d4b48c;
+  --scrollbar-thumb: rgba(255, 255, 255, 0.1);
+  --scrollbar-thumb-hover: rgba(255, 255, 255, 0.2);
+  --selection-bg: rgba(196, 164, 124, 0.3);
+  --focus-ring: rgba(255, 255, 255, 0.25);
+  --focus-ring-offset: #1a1a1a;
+}
+
+.light {
+  --bg: #fafafa;
+  --fg: #1a1a1a;
+  --srf: #ffffff;
+  --srf-h: #f0f0f0;
+  --bdr: rgba(0, 0, 0, 0.08);
+  --bdr-h: rgba(0, 0, 0, 0.15);
+  --mtd: #666666;
+  --dm: #999999;
+  --acc: #a07d50;
+  --acc-h: #8a6a3e;
+  --scrollbar-thumb: rgba(0, 0, 0, 0.15);
+  --scrollbar-thumb-hover: rgba(0, 0, 0, 0.25);
+  --selection-bg: rgba(160, 125, 80, 0.3);
+  --focus-ring: rgba(0, 0, 0, 0.2);
+  --focus-ring-offset: #fafafa;
 }
 
 html {
@@ -29,23 +65,24 @@ html {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.1);
+  background: var(--scrollbar-thumb);
   border-radius: 3px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(255, 255, 255, 0.2);
+  background: var(--scrollbar-thumb-hover);
 }
 
 ::selection {
-  background: rgba(196, 164, 124, 0.3);
-  color: #ececec;
+  background: var(--selection-bg);
+  color: var(--fg);
 }
 
 body {
-  background: #1a1a1a;
-  color: #ececec;
+  background: var(--bg);
+  color: var(--fg);
   font-family: var(--font-sans), ui-sans-serif, system-ui, -apple-system, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+

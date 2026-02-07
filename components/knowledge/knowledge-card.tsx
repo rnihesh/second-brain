@@ -3,7 +3,7 @@
 import React from "react";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
-import { formatDate, truncate } from "@/lib/utils";
+import { formatDate, truncate, stripMarkdown } from "@/lib/utils";
 import { motion } from "framer-motion";
 import { FileText, Link2, Lightbulb } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
@@ -44,7 +44,7 @@ function KnowledgeCard({ item, className }: KnowledgeCardProps) {
         whileHover={{ y: -4 }}
         transition={{ type: "spring", stiffness: 400, damping: 25 }}
         className={cn(
-          "group rounded-xl border border-[rgba(255,255,255,0.06)] bg-[#2a2a2a] p-5 transition-colors duration-200 hover:border-[rgba(255,255,255,0.12)]",
+          "group rounded-xl border border-border bg-surface p-5 transition-colors duration-200 hover:border-border-hover",
           className
         )}
       >
@@ -57,13 +57,13 @@ function KnowledgeCard({ item, className }: KnowledgeCardProps) {
         </div>
 
         {/* Title */}
-        <h3 className="mb-2 text-base font-semibold text-[#ececec] group-hover:text-[#c4a47c] transition-colors line-clamp-1">
+        <h3 className="mb-2 text-base font-semibold text-foreground group-hover:text-accent transition-colors line-clamp-1">
           {item.title}
         </h3>
 
         {/* Content preview */}
-        <p className="mb-3 text-sm leading-relaxed text-[#8a8a8a] line-clamp-3">
-          {truncate(displayText, 180)}
+        <p className="mb-3 text-sm leading-relaxed text-muted line-clamp-3">
+          {truncate(stripMarkdown(displayText), 180)}
         </p>
 
         {/* Tags */}
@@ -75,7 +75,7 @@ function KnowledgeCard({ item, className }: KnowledgeCardProps) {
               </Badge>
             ))}
             {item.tags.length > 4 && (
-              <span className="text-xs text-[#6b6b6b]">
+              <span className="text-xs text-dim">
                 +{item.tags.length - 4}
               </span>
             )}
@@ -83,7 +83,7 @@ function KnowledgeCard({ item, className }: KnowledgeCardProps) {
         )}
 
         {/* Date */}
-        <p className="text-xs text-[#6b6b6b]">
+        <p className="text-xs text-dim">
           {formatDate(item.createdAt)}
         </p>
       </motion.article>

@@ -28,13 +28,13 @@ function EmptyState({
       )}
     >
       {Icon && (
-        <div className="mb-4 rounded-xl bg-[#2a2a2a] p-4">
-          <Icon className="h-8 w-8 text-[#8a8a8a]" />
+        <div className="mb-4 rounded-xl bg-surface p-4">
+          <Icon className="h-8 w-8 text-muted" />
         </div>
       )}
-      <h3 className="text-lg font-semibold text-[#ececec]">{title}</h3>
+      <h3 className="text-lg font-semibold text-foreground">{title}</h3>
       {description && (
-        <p className="mt-1.5 max-w-sm text-sm text-[#8a8a8a]">{description}</p>
+        <p className="mt-1.5 max-w-sm text-sm text-muted">{description}</p>
       )}
       {actionLabel && onAction && (
         <Button onClick={onAction} className="mt-6" size="md">

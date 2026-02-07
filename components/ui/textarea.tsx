@@ -36,7 +36,7 @@ const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
         {label && (
           <label
             htmlFor={textareaId}
-            className="block text-sm font-normal text-[#8a8a8a]"
+            className="block text-sm font-normal text-muted"
           >
             {label}
           </label>
@@ -49,8 +49,8 @@ const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
           defaultValue={defaultValue}
           onChange={handleChange}
           className={cn(
-            "flex min-h-[120px] w-full rounded-lg border border-[rgba(255,255,255,0.06)] bg-[#2a2a2a] px-3 py-2 text-sm text-[#ececec] placeholder:text-[#6b6b6b] transition-colors duration-150 ease-out resize-y",
-            "focus:border-[rgba(255,255,255,0.2)] focus:outline-none",
+            "flex min-h-[120px] w-full rounded-lg border border-border bg-surface px-3 py-2 text-sm text-foreground placeholder:text-dim transition-colors duration-150 ease-out resize-y",
+            "focus:border-border-hover focus:outline-none",
             "disabled:cursor-not-allowed disabled:opacity-50",
             error && "border-[#c47c7c] focus:border-[#c47c7c]",
             className
@@ -62,8 +62,8 @@ const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
           {showCount && maxLength && (
             <p
               className={cn(
-                "ml-auto text-xs text-[#6b6b6b]",
-                charCount > maxLength * 0.9 && "text-[#c4a47c]",
+                "ml-auto text-xs text-dim",
+                charCount > maxLength * 0.9 && "text-accent",
                 charCount >= maxLength && "text-[#c47c7c]"
               )}
             >

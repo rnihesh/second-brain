@@ -47,7 +47,7 @@ function Sidebar({
       <button
         type="button"
         onClick={() => setCollapsed(!collapsed)}
-        className="fixed bottom-4 left-4 z-30 flex h-10 w-10 items-center justify-center rounded-full bg-[#c4a47c] text-[#1a1a1a] md:hidden cursor-pointer"
+        className="fixed bottom-4 left-4 z-30 flex h-10 w-10 items-center justify-center rounded-full bg-accent text-background md:hidden cursor-pointer"
       >
         <ChevronLeft
           className={cn(
@@ -65,7 +65,7 @@ function Sidebar({
             exit={{ x: -280 }}
             transition={{ type: "spring", stiffness: 300, damping: 30 }}
             className={cn(
-              "fixed inset-y-0 left-0 top-16 z-20 w-64 border-r border-[rgba(255,255,255,0.06)] bg-[#1a1a1a] p-4 md:sticky md:block",
+              "fixed inset-y-0 left-0 top-16 z-20 w-64 border-r border-border bg-background p-4 md:sticky md:block",
               className
             )}
           >
@@ -83,7 +83,7 @@ function Sidebar({
 
             {/* Filters */}
             <div className="space-y-1">
-              <p className="mb-2 px-3 text-xs font-semibold uppercase tracking-wider text-[#6b6b6b]">
+              <p className="mb-2 px-3 text-xs font-semibold uppercase tracking-wider text-dim">
                 Filters
               </p>
               {filters.map((filter) => {
@@ -97,8 +97,8 @@ function Sidebar({
                     className={cn(
                       "flex w-full items-center justify-between rounded-lg px-3 py-2 text-sm font-medium transition-colors cursor-pointer",
                       isActive
-                        ? "bg-[#c4a47c]/10 text-[#c4a47c]"
-                        : "text-[#8a8a8a] hover:bg-[#2a2a2a] hover:text-[#ececec]"
+                        ? "bg-accent/10 text-accent"
+                        : "text-muted hover:bg-surface hover:text-foreground"
                     )}
                   >
                     <span className="flex items-center gap-2.5">
@@ -108,7 +108,7 @@ function Sidebar({
                     <span
                       className={cn(
                         "text-xs tabular-nums",
-                        isActive ? "text-[#c4a47c]" : "text-[#6b6b6b]"
+                        isActive ? "text-accent" : "text-dim"
                       )}
                     >
                       {count}
@@ -121,7 +121,7 @@ function Sidebar({
             {/* Tags */}
             {tags.length > 0 && (
               <div className="mt-8">
-                <p className="mb-3 px-3 text-xs font-semibold uppercase tracking-wider text-[#6b6b6b]">
+                <p className="mb-3 px-3 text-xs font-semibold uppercase tracking-wider text-dim">
                   <Tag className="mb-0.5 mr-1.5 inline h-3 w-3" />
                   Popular Tags
                 </p>
@@ -133,15 +133,15 @@ function Sidebar({
                         key={tag.name}
                         variant={isTagActive ? "accent" : "secondary"}
                         size="sm"
-                        className="cursor-pointer hover:bg-[#333333] transition-colors"
+                        className="cursor-pointer hover:bg-surface-hover transition-colors"
                         onClick={() =>
                           onFilterChange(isTagActive ? "all" : `tag:${tag.name}`)
                         }
                       >
                         {tag.name}
-                        <span className="ml-1 text-[#6b6b6b]">{tag.count}</span>
+                        <span className="ml-1 text-dim">{tag.count}</span>
                         {isTagActive && (
-                          <span className="ml-1 text-[#c4a47c]">&times;</span>
+                          <span className="ml-1 text-accent">&times;</span>
                         )}
                       </Badge>
                     );

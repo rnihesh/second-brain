@@ -30,28 +30,28 @@ export default function CapturePage() {
       <FadeIn>
         <div className="mb-8">
           <div className="mb-4 flex items-center gap-3">
-            <div className="rounded-xl bg-[#c4a47c]/10 p-2.5">
-              <Brain className="h-6 w-6 text-[#c4a47c]" />
+            <div className="rounded-xl bg-accent/10 p-2.5">
+              <Brain className="h-6 w-6 text-accent" />
             </div>
             <div>
-              <h1 className="text-2xl font-bold text-[#ececec]">
+              <h1 className="text-2xl font-bold text-foreground">
                 Capture Knowledge
               </h1>
-              <p className="text-sm text-[#8a8a8a]">
+              <p className="text-sm text-muted">
                 Add a note, save a link, or record an insight
               </p>
             </div>
           </div>
 
-          <div className="flex items-center gap-2 rounded-lg border border-[rgba(255,255,255,0.06)] bg-[#2a2a2a] px-4 py-3 text-sm text-[#8a8a8a]">
-            <Sparkles className="h-4 w-4 text-[#c4a47c]" />
+          <div className="flex items-center gap-2 rounded-lg border border-border bg-surface px-4 py-3 text-sm text-muted">
+            <Sparkles className="h-4 w-4 text-accent" />
             Enable auto-summarize and auto-tag for AI-powered enrichment
           </div>
         </div>
       </FadeIn>
 
       <FadeIn delay={0.1}>
-        <div className="rounded-xl border border-[rgba(255,255,255,0.06)] bg-[#2a2a2a] p-6 sm:p-8">
+        <div className="rounded-xl border border-border bg-surface p-6 sm:p-8">
           <KnowledgeForm availableTags={availableTags} />
         </div>
       </FadeIn>

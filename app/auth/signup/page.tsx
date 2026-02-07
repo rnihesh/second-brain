@@ -65,7 +65,7 @@ export default function SignUpPage() {
   };
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-[#1a1a1a] px-4">
+    <div className="flex min-h-screen items-center justify-center bg-background px-4">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -75,18 +75,18 @@ export default function SignUpPage() {
         {/* Logo */}
         <div className="mb-8 text-center">
           <Link href="/" className="inline-flex items-center gap-2">
-            <Brain className="h-8 w-8 text-[#c4a47c]" />
-            <span className="text-xl font-bold text-[#ececec]">
+            <Brain className="h-8 w-8 text-accent" />
+            <span className="text-xl font-bold text-foreground">
               Second Brain
             </span>
           </Link>
-          <p className="mt-2 text-sm text-[#8a8a8a]">
+          <p className="mt-2 text-sm text-muted">
             Create your knowledge base account
           </p>
         </div>
 
         {/* Form Card */}
-        <div className="rounded-xl border border-[rgba(255,255,255,0.06)] bg-[#2a2a2a] p-8">
+        <div className="rounded-xl border border-border bg-surface p-8">
           <form onSubmit={handleSubmit} className="space-y-5">
             {/* Error */}
             {error && (
@@ -102,7 +102,7 @@ export default function SignUpPage() {
 
             {/* Name */}
             <div className="space-y-1.5">
-              <label className="block text-sm font-medium text-[#8a8a8a]">
+              <label className="block text-sm font-medium text-muted">
                 Name
               </label>
               <input
@@ -111,13 +111,13 @@ export default function SignUpPage() {
                 onChange={(e) => setName(e.target.value)}
                 placeholder="Your name"
                 required
-                className="flex h-10 w-full rounded-lg border border-[rgba(255,255,255,0.06)] bg-[#1a1a1a] px-4 text-sm text-[#ececec] placeholder:text-[#6b6b6b] transition-colors focus:border-[rgba(255,255,255,0.2)] focus:outline-none"
+                className="flex h-10 w-full rounded-lg border border-border bg-background px-4 text-sm text-foreground placeholder:text-dim transition-colors focus:border-border-hover focus:outline-none"
               />
             </div>
 
             {/* Email */}
             <div className="space-y-1.5">
-              <label className="block text-sm font-medium text-[#8a8a8a]">
+              <label className="block text-sm font-medium text-muted">
                 Email
               </label>
               <input
@@ -126,13 +126,13 @@ export default function SignUpPage() {
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="you@example.com"
                 required
-                className="flex h-10 w-full rounded-lg border border-[rgba(255,255,255,0.06)] bg-[#1a1a1a] px-4 text-sm text-[#ececec] placeholder:text-[#6b6b6b] transition-colors focus:border-[rgba(255,255,255,0.2)] focus:outline-none"
+                className="flex h-10 w-full rounded-lg border border-border bg-background px-4 text-sm text-foreground placeholder:text-dim transition-colors focus:border-border-hover focus:outline-none"
               />
             </div>
 
             {/* Password */}
             <div className="space-y-1.5">
-              <label className="block text-sm font-medium text-[#8a8a8a]">
+              <label className="block text-sm font-medium text-muted">
                 Password
               </label>
               <input
@@ -142,13 +142,13 @@ export default function SignUpPage() {
                 placeholder="Min. 8 characters"
                 required
                 minLength={8}
-                className="flex h-10 w-full rounded-lg border border-[rgba(255,255,255,0.06)] bg-[#1a1a1a] px-4 text-sm text-[#ececec] placeholder:text-[#6b6b6b] transition-colors focus:border-[rgba(255,255,255,0.2)] focus:outline-none"
+                className="flex h-10 w-full rounded-lg border border-border bg-background px-4 text-sm text-foreground placeholder:text-dim transition-colors focus:border-border-hover focus:outline-none"
               />
             </div>
 
             {/* Confirm Password */}
             <div className="space-y-1.5">
-              <label className="block text-sm font-medium text-[#8a8a8a]">
+              <label className="block text-sm font-medium text-muted">
                 Confirm Password
               </label>
               <input
@@ -157,7 +157,7 @@ export default function SignUpPage() {
                 onChange={(e) => setConfirmPassword(e.target.value)}
                 placeholder="Repeat password"
                 required
-                className="flex h-10 w-full rounded-lg border border-[rgba(255,255,255,0.06)] bg-[#1a1a1a] px-4 text-sm text-[#ececec] placeholder:text-[#6b6b6b] transition-colors focus:border-[rgba(255,255,255,0.2)] focus:outline-none"
+                className="flex h-10 w-full rounded-lg border border-border bg-background px-4 text-sm text-foreground placeholder:text-dim transition-colors focus:border-border-hover focus:outline-none"
               />
             </div>
 
@@ -165,7 +165,7 @@ export default function SignUpPage() {
             <button
               type="submit"
               disabled={loading}
-              className="flex h-10 w-full items-center justify-center gap-2 rounded-lg bg-[#c4a47c] text-sm font-semibold text-[#1a1a1a] transition-colors hover:bg-[#d4b48c] disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
+              className="flex h-10 w-full items-center justify-center gap-2 rounded-lg bg-accent text-sm font-semibold text-background transition-colors hover:bg-accent-hover disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
             >
               {loading ? (
                 <Loader2 className="h-4 w-4 animate-spin" />
@@ -176,11 +176,11 @@ export default function SignUpPage() {
           </form>
 
           {/* Link to sign in */}
-          <p className="mt-6 text-center text-sm text-[#8a8a8a]">
+          <p className="mt-6 text-center text-sm text-muted">
             Already have an account?{" "}
             <Link
               href="/auth/signin"
-              className="font-medium text-[#c4a47c] transition-colors hover:text-[#d4b48c]"
+              className="font-medium text-accent transition-colors hover:text-accent-hover"
             >
               Sign In
             </Link>

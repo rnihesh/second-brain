@@ -92,14 +92,14 @@ function TagInput({
   return (
     <div ref={containerRef} className={cn("w-full space-y-1.5", className)}>
       {label && (
-        <label className="block text-sm font-normal text-[#8a8a8a]">
+        <label className="block text-sm font-normal text-muted">
           {label}
         </label>
       )}
       <div
         className={cn(
-          "flex flex-wrap items-center gap-1.5 rounded-lg border border-[rgba(255,255,255,0.06)] bg-[#2a2a2a] px-3 py-2 transition-colors duration-150",
-          "focus-within:border-[rgba(255,255,255,0.2)]"
+          "flex flex-wrap items-center gap-1.5 rounded-lg border border-border bg-surface px-3 py-2 transition-colors duration-150",
+          "focus-within:border-border-hover"
         )}
         onClick={() => inputRef.current?.focus()}
       >
@@ -120,21 +120,21 @@ function TagInput({
           onFocus={() => setShowSuggestions(true)}
           onKeyDown={handleKeyDown}
           placeholder={tags.length === 0 ? placeholder : ""}
-          className="min-w-[80px] flex-1 bg-transparent text-sm text-[#ececec] placeholder:text-[#6b6b6b] outline-none"
+          className="min-w-[80px] flex-1 bg-transparent text-sm text-foreground placeholder:text-dim outline-none"
         />
       </div>
 
       {showSuggestions && filteredSuggestions.length > 0 && (
         <div className="relative">
-          <div className="absolute z-10 mt-1 w-full rounded-lg border border-[rgba(255,255,255,0.06)] bg-[#2a2a2a] py-1">
+          <div className="absolute z-10 mt-1 w-full rounded-lg border border-border bg-surface py-1">
             {filteredSuggestions.map((suggestion, index) => (
               <button
                 key={suggestion}
                 type="button"
                 onClick={() => addTag(suggestion)}
                 className={cn(
-                  "w-full px-3 py-1.5 text-left text-sm text-[#8a8a8a] hover:bg-[#333333] hover:text-[#ececec] transition-colors duration-150 cursor-pointer",
-                  index === highlightedIndex && "bg-[#333333] text-[#ececec]"
+                  "w-full px-3 py-1.5 text-left text-sm text-muted hover:bg-surface-hover hover:text-foreground transition-colors duration-150 cursor-pointer",
+                  index === highlightedIndex && "bg-surface-hover text-foreground"
                 )}
               >
                 {suggestion}

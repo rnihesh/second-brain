@@ -149,14 +149,14 @@ function DashboardContent() {
             />
             <div className="flex items-center gap-2">
               {/* View toggle */}
-              <div className="flex rounded-lg border border-[rgba(255,255,255,0.06)] bg-[#2a2a2a] p-0.5">
+              <div className="flex rounded-lg border border-border bg-surface p-0.5">
                 <button
                   type="button"
                   onClick={() => setView("grid")}
                   className={`rounded-md p-1.5 transition-colors cursor-pointer ${
                     view === "grid"
-                      ? "bg-[#333333] text-[#ececec]"
-                      : "text-[#6b6b6b] hover:text-[#ececec]"
+                      ? "bg-surface-hover text-foreground"
+                      : "text-dim hover:text-foreground"
                   }`}
                 >
                   <LayoutGrid className="h-4 w-4" />
@@ -166,8 +166,8 @@ function DashboardContent() {
                   onClick={() => setView("list")}
                   className={`rounded-md p-1.5 transition-colors cursor-pointer ${
                     view === "list"
-                      ? "bg-[#333333] text-[#ececec]"
-                      : "text-[#6b6b6b] hover:text-[#ececec]"
+                      ? "bg-surface-hover text-foreground"
+                      : "text-dim hover:text-foreground"
                   }`}
                 >
                   <List className="h-4 w-4" />
@@ -182,7 +182,7 @@ function DashboardContent() {
                     const [sb, so] = e.target.value.split("-");
                     updateParams({ sortBy: sb, sortOrder: so });
                   }}
-                  className="h-9 cursor-pointer appearance-none rounded-lg border border-[rgba(255,255,255,0.06)] bg-[#2a2a2a] pl-8 pr-3 text-sm text-[#ececec] focus:border-[rgba(255,255,255,0.2)] focus:outline-none"
+                  className="h-9 cursor-pointer appearance-none rounded-lg border border-border bg-surface pl-8 pr-3 text-sm text-foreground focus:border-border-hover focus:outline-none"
                 >
                   <option value="createdAt-desc">Newest</option>
                   <option value="createdAt-asc">Oldest</option>
@@ -190,7 +190,7 @@ function DashboardContent() {
                   <option value="title-asc">Title A–Z</option>
                   <option value="title-desc">Title Z–A</option>
                 </select>
-                <SortAsc className="pointer-events-none absolute left-2.5 top-1/2 h-3.5 w-3.5 -translate-y-1/2 text-[#6b6b6b]" />
+                <SortAsc className="pointer-events-none absolute left-2.5 top-1/2 h-3.5 w-3.5 -translate-y-1/2 text-dim" />
               </div>
 
               {/* New Item */}
@@ -246,7 +246,7 @@ function DashboardContent() {
               >
                 <ChevronLeft className="h-4 w-4" />
               </Button>
-              <span className="px-3 text-sm text-[#8a8a8a]">
+              <span className="px-3 text-sm text-muted">
                 Page {page} of {totalPages}
               </span>
               <Button
@@ -266,7 +266,7 @@ function DashboardContent() {
       <button
         type="button"
         onClick={() => setChatOpen(!chatOpen)}
-        className="fixed bottom-6 right-6 z-30 flex h-14 w-14 items-center justify-center rounded-full bg-[#c4a47c] text-[#1a1a1a] transition-all hover:bg-[#d4b48c] hover:scale-105 cursor-pointer"
+        className="fixed bottom-6 right-6 z-30 flex h-14 w-14 items-center justify-center rounded-full bg-accent text-background transition-all hover:bg-accent-hover hover:scale-105 cursor-pointer"
       >
         {chatOpen ? (
           <X className="h-5 w-5" />

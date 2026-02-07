@@ -4,6 +4,7 @@ import React from "react";
 import { useParams, useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
 import toast from "react-hot-toast";
 import { format } from "date-fns";
 import {
@@ -190,7 +191,7 @@ export default function ItemDetailPage() {
         <button
           type="button"
           onClick={() => router.push("/dashboard")}
-          className="mb-6 flex items-center gap-2 text-sm text-[#8a8a8a] transition-colors hover:text-[#ececec] cursor-pointer"
+          className="mb-6 flex items-center gap-2 text-sm text-muted transition-colors hover:text-foreground cursor-pointer"
         >
           <ArrowLeft className="h-4 w-4" />
           Back to Dashboard
@@ -198,7 +199,7 @@ export default function ItemDetailPage() {
       </FadeIn>
 
       <FadeIn delay={0.05}>
-        <article className="rounded-xl border border-[rgba(255,255,255,0.06)] bg-[#2a2a2a] p-6 sm:p-8">
+        <article className="rounded-xl border border-border bg-surface p-6 sm:p-8">
           {/* Header */}
           <div className="mb-6 flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
             <div className="flex-1">
@@ -212,17 +213,17 @@ export default function ItemDetailPage() {
                     href={item.sourceUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center gap-1.5 text-xs text-[#c4a47c] transition-colors hover:text-[#d4b48c]"
+                    className="flex items-center gap-1.5 text-xs text-accent transition-colors hover:text-accent-hover"
                   >
                     <ExternalLink className="h-3 w-3" />
                     Source
                   </a>
                 )}
               </div>
-              <h1 className="text-2xl font-bold text-[#ececec] sm:text-3xl">
+              <h1 className="text-2xl font-bold text-foreground sm:text-3xl">
                 {item.title}
               </h1>
-              <div className="mt-2 flex items-center gap-4 text-sm text-[#6b6b6b]">
+              <div className="mt-2 flex items-center gap-4 text-sm text-dim">
                 <span className="flex items-center gap-1.5">
                   <Calendar className="h-3.5 w-3.5" />
                   {format(new Date(item.createdAt), "MMM d, yyyy 'at' h:mm a")}
@@ -280,11 +281,11 @@ export default function ItemDetailPage() {
 
           {/* AI Summary */}
           {item.summary && (
-            <div className="mb-6 rounded-lg border border-[#c4a47c]/20 bg-[#c4a47c]/5 p-4">
+            <div className="mb-6 rounded-lg border border-accent/20 bg-accent/5 p-4">
               <button
                 type="button"
                 onClick={() => setSummaryOpen(!summaryOpen)}
-                className="flex w-full items-center justify-between text-sm font-medium text-[#c4a47c] cursor-pointer"
+                className="flex w-full items-center justify-between text-sm font-medium text-accent cursor-pointer"
               >
                 <span className="flex items-center gap-2">
                   <Sparkles className="h-4 w-4" />
@@ -305,7 +306,7 @@ export default function ItemDetailPage() {
                     transition={{ duration: 0.2 }}
                     className="overflow-hidden"
                   >
-                    <p className="mt-3 text-sm leading-relaxed text-[#ececec]">
+                    <p className="mt-3 text-sm leading-relaxed text-foreground">
                       {item.summary}
                     </p>
                   </motion.div>
@@ -316,20 +317,20 @@ export default function ItemDetailPage() {
 
           {/* File Attachment */}
           {item.fileName && (
-            <div className="mb-6 rounded-lg border border-[rgba(255,255,255,0.06)] bg-[#1a1a1a] overflow-hidden">
+            <div className="mb-6 rounded-lg border border-border bg-background overflow-hidden">
               {/* Image preview */}
               {item.fileType?.startsWith("image/") ? (
                 <div className="relative">
                   <img
                     src={item.fileName}
                     alt={item.title}
-                    className="w-full max-h-96 object-contain bg-[#111]"
+                    className="w-full max-h-96 object-contain bg-background"
                   />
                   <a
                     href={item.fileName}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="absolute top-3 right-3 flex items-center gap-1.5 rounded-lg bg-[#2a2a2a]/90 px-3 py-1.5 text-xs text-[#ececec] transition-colors hover:bg-[#333333]"
+                    className="absolute top-3 right-3 flex items-center gap-1.5 rounded-lg bg-surface/90 px-3 py-1.5 text-xs text-foreground transition-colors hover:bg-surface-hover"
                   >
                     <Download className="h-3 w-3" />
                     Open
@@ -338,27 +339,27 @@ export default function ItemDetailPage() {
               ) : (
                 <div className="flex items-center justify-between px-4 py-3">
                   <div className="flex items-center gap-3">
-                    <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-[#c4a47c]/10">
+                    <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-accent/10">
                       {item.fileType === "application/pdf" ? (
-                        <FileIcon className="h-4 w-4 text-[#c4a47c]" />
+                        <FileIcon className="h-4 w-4 text-accent" />
                       ) : item.fileType?.startsWith("image/") ? (
-                        <ImageIcon className="h-4 w-4 text-[#c4a47c]" />
+                        <ImageIcon className="h-4 w-4 text-accent" />
                       ) : (
-                        <Paperclip className="h-4 w-4 text-[#c4a47c]" />
+                        <Paperclip className="h-4 w-4 text-accent" />
                       )}
                     </div>
                     <div>
-                      <p className="text-sm font-medium text-[#ececec]">
+                      <p className="text-sm font-medium text-foreground">
                         {item.fileName.split("/").pop()}
                       </p>
-                      <p className="text-xs text-[#6b6b6b]">{item.fileType}</p>
+                      <p className="text-xs text-dim">{item.fileType}</p>
                     </div>
                   </div>
                   <a
                     href={item.fileName}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center gap-1.5 rounded-lg border border-[rgba(255,255,255,0.06)] px-3 py-1.5 text-xs text-[#ececec] transition-colors hover:bg-[#2a2a2a]"
+                    className="flex items-center gap-1.5 rounded-lg border border-border px-3 py-1.5 text-xs text-foreground transition-colors hover:bg-surface"
                   >
                     <Download className="h-3 w-3" />
                     Open
@@ -369,8 +370,8 @@ export default function ItemDetailPage() {
           )}
 
           {/* Content */}
-          <div className="prose prose-invert max-w-none prose-headings:text-[#ececec] prose-p:text-[#ececec] prose-a:text-[#c4a47c] prose-strong:text-[#ececec] prose-code:rounded prose-code:bg-[#333333] prose-code:px-1.5 prose-code:py-0.5 prose-code:text-[#c4a47c] prose-pre:border prose-pre:border-[rgba(255,255,255,0.06)] prose-pre:bg-[#1a1a1a]">
-            <ReactMarkdown>{item.content}</ReactMarkdown>
+          <div className="prose prose-invert max-w-none prose-headings:text-foreground prose-headings:mt-8 prose-headings:mb-4 prose-p:text-foreground prose-a:text-accent prose-a:underline prose-strong:text-foreground prose-code:rounded prose-code:bg-surface-hover prose-code:px-1.5 prose-code:py-0.5 prose-code:text-accent prose-code:before:content-none prose-code:after:content-none prose-pre:border prose-pre:border-border prose-pre:bg-background prose-pre:text-foreground prose-ul:list-disc prose-ul:pl-6 prose-ol:list-decimal prose-ol:pl-6 prose-li:text-foreground prose-li:my-1 prose-blockquote:border-l-4 prose-blockquote:border-accent prose-blockquote:pl-4 prose-blockquote:italic prose-blockquote:text-muted prose-table:border-collapse prose-th:border prose-th:border-border prose-th:px-3 prose-th:py-2 prose-th:text-foreground prose-td:border prose-td:border-border prose-td:px-3 prose-td:py-2 prose-img:rounded-lg prose-hr:border-border">
+            <ReactMarkdown remarkPlugins={[remarkGfm]}>{item.content}</ReactMarkdown>
           </div>
         </article>
       </FadeIn>
@@ -393,7 +394,7 @@ export default function ItemDetailPage() {
         size="sm"
       >
         <div className="space-y-4">
-          <p className="text-sm text-[#8a8a8a]">
+          <p className="text-sm text-muted">
             Are you sure you want to delete &quot;{item.title}&quot;? This
             action cannot be undone.
           </p>

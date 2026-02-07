@@ -5,13 +5,13 @@ import { cn } from "@/lib/utils";
 import { X } from "lucide-react";
 
 const variantStyles = {
-  default: "bg-[rgba(255,255,255,0.06)] text-[#8a8a8a]",
-  secondary: "bg-[rgba(255,255,255,0.06)] text-[#8a8a8a]",
-  outline: "bg-transparent text-[#8a8a8a] border border-[rgba(255,255,255,0.06)]",
-  accent: "bg-[#c4a47c]/10 text-[#c4a47c]",
-  "type-note": "bg-[#c4a47c]/10 text-[#c4a47c]",
-  "type-link": "bg-[rgba(255,255,255,0.06)] text-[#8a8a8a]",
-  "type-insight": "bg-[#c4a47c]/10 text-[#c4a47c]",
+  default: "bg-border text-muted",
+  secondary: "bg-border text-muted",
+  outline: "bg-transparent text-muted border border-border",
+  accent: "bg-accent/10 text-accent",
+  "type-note": "bg-accent/10 text-accent",
+  "type-link": "bg-border text-muted",
+  "type-insight": "bg-accent/10 text-accent",
 };
 
 const sizeStyles = {
@@ -51,7 +51,7 @@ function Badge({
             e.stopPropagation();
             onRemove();
           }}
-          className="ml-0.5 rounded-full p-0.5 hover:bg-[rgba(255,255,255,0.1)] transition-colors duration-150 cursor-pointer"
+          className="ml-0.5 rounded-full p-0.5 hover:bg-border-hover transition-colors duration-150 cursor-pointer"
         >
           <X className="h-3 w-3" />
         </button>
