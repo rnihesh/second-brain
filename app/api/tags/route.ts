@@ -10,9 +10,18 @@ export async function GET() {
     }
 
     const tags = await prisma.tag.findMany({
+      where: {
+        knowledgeItems: {
+          some: { userId: session.user.id },
+        },
+      },
       include: {
         _count: {
-          select: { knowledgeItems: true },
+          select: {
+            knowledgeItems: {
+              where: { userId: session.user.id },
+            },
+          },
         },
       },
       orderBy: { name: "asc" },

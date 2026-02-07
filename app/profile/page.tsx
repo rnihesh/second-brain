@@ -3,7 +3,7 @@
 import React from "react";
 import { useSession, signOut } from "next-auth/react";
 import { useRouter } from "next/navigation";
-import { User, Mail, Calendar, LogOut, Loader2 } from "lucide-react";
+import { ArrowLeft, User, Mail, Calendar, LogOut, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { FadeIn } from "@/components/animations/fade-in";
 
@@ -27,6 +27,14 @@ export default function ProfilePage() {
   return (
     <div className="mx-auto max-w-2xl px-4 py-10 sm:px-6">
       <FadeIn>
+        <button
+          type="button"
+          onClick={() => router.push("/dashboard")}
+          className="mb-6 flex items-center gap-2 text-sm text-muted transition-colors hover:text-foreground cursor-pointer"
+        >
+          <ArrowLeft className="h-4 w-4" />
+          Back to Dashboard
+        </button>
         <h1 className="mb-8 text-2xl font-bold text-foreground">Profile</h1>
       </FadeIn>
 

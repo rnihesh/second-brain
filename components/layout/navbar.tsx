@@ -143,8 +143,16 @@ function Navbar() {
                 onClick={() => setUserMenuOpen(!userMenuOpen)}
                 className="flex items-center gap-2 rounded-lg px-2 py-1.5 text-sm text-foreground transition-colors hover:bg-surface cursor-pointer"
               >
-                <div className="flex h-7 w-7 items-center justify-center rounded-full bg-accent/20 text-accent">
-                  <User className="h-4 w-4" />
+                <div className="flex h-7 w-7 items-center justify-center rounded-full bg-accent/20 text-accent overflow-hidden">
+                  {session.user.image ? (
+                    <img
+                      src={session.user.image}
+                      alt={session.user.name || "User"}
+                      className="h-7 w-7 rounded-full object-cover"
+                    />
+                  ) : (
+                    <User className="h-4 w-4" />
+                  )}
                 </div>
                 <span className="max-w-[120px] truncate">
                   {session.user.name || session.user.email}
