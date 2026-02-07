@@ -69,9 +69,9 @@ export async function POST(req: NextRequest) {
       const buffer = Buffer.from(bytes);
 
       try {
-        // Dynamic import of pdf-parse
+        // Import pdf-parse lib directly to avoid test file loading bug in index.js
         // eslint-disable-next-line @typescript-eslint/no-require-imports
-        const pdfParse = require("pdf-parse");
+        const pdfParse = require("pdf-parse/lib/pdf-parse");
         const pdfData = await pdfParse(buffer);
         const extractedText = pdfData.text?.trim();
 
