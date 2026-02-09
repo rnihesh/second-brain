@@ -113,7 +113,7 @@ function Sidebar({
                   }
                 >
                   {tag.name}
-                  <span className="ml-1 text-dim">{tag.count}</span>
+                  {/* <span className="ml-1 text-dim">{tag.count}</span> */}
                   {isTagActive && (
                     <span className="ml-1 text-accent">&times;</span>
                   )}
