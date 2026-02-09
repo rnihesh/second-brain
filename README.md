@@ -2,8 +2,6 @@
 
 An intelligent knowledge management platform that captures, organizes, and surfaces knowledge using AI. Built with Next.js 16, Prisma, and a pluggable AI provider system.
 
-> **Altibbe/Hedamo Full-Stack Engineering Internship Assignment**
-
 ---
 
 ## Features
