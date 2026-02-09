@@ -3,7 +3,7 @@
 import React from "react";
 import { cn } from "@/lib/utils";
 import { motion, AnimatePresence } from "framer-motion";
-import { Send, Bot, User, Loader2, ExternalLink } from "lucide-react";
+import { Send, Bot, User, Loader2, ExternalLink, X } from "lucide-react";
 import type { QueryResponse } from "@/types";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
@@ -15,7 +15,12 @@ interface Message {
   sources?: QueryResponse["sources"];
 }
 
-function AiChat({ className }: { className?: string }) {
+interface AiChatProps {
+  className?: string;
+  onClose?: () => void;
+}
+
+function AiChat({ className, onClose }: AiChatProps) {
   const [messages, setMessages] = React.useState<Message[]>([]);
   const [input, setInput] = React.useState("");
   const [loading, setLoading] = React.useState(false);
@@ -82,10 +87,27 @@ function AiChat({ className }: { className?: string }) {
   return (
     <div
       className={cn(
-        "flex h-[600px] flex-col rounded-xl border border-border bg-surface",
+        "flex flex-col bg-surface md:rounded-xl md:border md:border-border md:shadow-2xl md:h-[600px]",
         className
       )}
     >
+      {/* Header - only visible on mobile */}
+      <div className="flex items-center justify-between border-b border-border p-4 md:hidden">
+        <div className="flex items-center gap-2">
+          <Bot className="h-5 w-5 text-accent" />
+          <h2 className="font-semibold text-foreground">AI Assistant</h2>
+        </div>
+        {onClose && (
+          <button
+            type="button"
+            onClick={onClose}
+            className="flex h-8 w-8 items-center justify-center rounded-lg text-muted hover:bg-surface-hover hover:text-foreground transition-colors cursor-pointer"
+          >
+            <X className="h-5 w-5" />
+          </button>
+        )}
+      </div>
+
       {/* Messages */}
       <div
         ref={scrollRef}
@@ -134,7 +156,7 @@ function AiChat({ className }: { className?: string }) {
               {/* Content */}
               <div
                 className={cn(
-                  "max-w-[80%] rounded-xl px-4 py-2.5",
+                  "max-w-[85%] sm:max-w-[80%] rounded-xl px-3 py-2 sm:px-4 sm:py-2.5 text-sm",
                   msg.role === "user"
                     ? "bg-accent/10 text-foreground"
                     : "bg-surface-hover text-foreground"
@@ -188,7 +210,7 @@ function AiChat({ className }: { className?: string }) {
       </div>
 
       {/* Input */}
-      <div className="border-t border-border p-4">
+      <div className="border-t border-border p-3 sm:p-4">
         <div className="flex items-center gap-2">
           <input
             ref={inputRef}
@@ -199,7 +221,7 @@ function AiChat({ className }: { className?: string }) {
             placeholder="Ask a question..."
             disabled={loading}
             className={cn(
-              "flex-1 rounded-lg border border-border bg-background px-4 py-2.5 text-sm text-foreground placeholder:text-dim transition-colors",
+              "flex-1 rounded-lg border border-border bg-background px-3 py-2 sm:px-4 sm:py-2.5 text-sm text-foreground placeholder:text-dim transition-colors",
               "focus:border-border-hover focus:outline-none",
               "disabled:opacity-50"
             )}
@@ -209,11 +231,11 @@ function AiChat({ className }: { className?: string }) {
             onClick={sendMessage}
             disabled={loading || !input.trim()}
             className={cn(
-              "flex h-10 w-10 items-center justify-center rounded-lg bg-accent text-background transition-colors cursor-pointer",
+              "flex h-9 w-9 sm:h-10 sm:w-10 items-center justify-center rounded-lg bg-accent text-background transition-colors cursor-pointer shrink-0",
               "hover:bg-accent-hover disabled:opacity-50 disabled:cursor-not-allowed"
             )}
           >
-            <Send className="h-4 w-4" />
+            <Send className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
           </button>
         </div>
       </div>

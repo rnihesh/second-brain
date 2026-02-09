@@ -134,7 +134,6 @@ function DashboardContent() {
         activeFilter={typeFilter}
         onFilterChange={(filter) => updateParams({ type: filter, page: "1" })}
         onNewItem={() => router.push("/capture")}
-        className="hidden md:block"
       />
 
       {/* Main Content */}
@@ -266,7 +265,7 @@ function DashboardContent() {
       <button
         type="button"
         onClick={() => setChatOpen(!chatOpen)}
-        className="fixed bottom-6 right-6 z-30 flex h-14 w-14 items-center justify-center rounded-full bg-accent text-background transition-all hover:bg-accent-hover hover:scale-105 cursor-pointer"
+        className="fixed bottom-4 right-4 z-30 flex h-12 w-12 sm:h-14 sm:w-14 sm:bottom-6 sm:right-6 items-center justify-center rounded-full bg-accent text-background transition-all hover:bg-accent-hover hover:scale-105 cursor-pointer shadow-lg"
       >
         {chatOpen ? (
           <X className="h-5 w-5" />
@@ -279,16 +278,15 @@ function DashboardContent() {
       <AnimatePresence>
         {chatOpen && (
           <motion.div
-            initial={{ x: 400, opacity: 0 }}
-            animate={{ x: 0, opacity: 1 }}
-            exit={{ x: 400, opacity: 0 }}
-            transition={{ type: "spring", stiffness: 300, damping: 30 }}
-            className="fixed bottom-24 right-6 z-30 w-96"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.2 }}
+            className="fixed inset-0 z-30 bg-background md:inset-auto md:bottom-24 md:right-6 md:left-auto md:w-96 md:bg-transparent"
           >
-            <AiChat />
+            <AiChat className="h-full md:h-auto" onClose={() => setChatOpen(false)} />
           </motion.div>
-        )}
-      </AnimatePresence>
+        )}\n      </AnimatePresence>
     </div>
   );
 }

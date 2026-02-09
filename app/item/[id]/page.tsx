@@ -232,24 +232,26 @@ export default function ItemDetailPage() {
             </div>
 
             {/* Actions */}
-            <div className="flex items-center gap-2">
+            <div className="flex flex-wrap items-center gap-2">
               <Button
                 variant="outline"
                 size="sm"
                 onClick={handleSummarize}
                 loading={summarizing}
+                className="text-xs"
               >
                 <Sparkles className="h-3.5 w-3.5" />
-                Summarize
+                <span className="hidden sm:inline">Summarize</span>
               </Button>
               <Button
                 variant="outline"
                 size="sm"
                 onClick={handleAutoTag}
                 loading={autoTagging}
+                className="text-xs"
               >
                 <Tags className="h-3.5 w-3.5" />
-                Auto-tag
+                <span className="hidden sm:inline">Auto-tag</span>
               </Button>
               <Button
                 variant="outline"
