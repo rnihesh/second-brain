@@ -1,4 +1,4 @@
-# 🧠 Second Brain — AI-Powered Knowledge System
+# Second Brain — AI-Powered Knowledge System
 
 An intelligent knowledge management platform that captures, organizes, and surfaces knowledge using AI. Built with Next.js 16, Prisma, and a pluggable AI provider system.
 
@@ -6,9 +6,10 @@ An intelligent knowledge management platform that captures, organizes, and surfa
 
 ---
 
-## ✨ Features
+## Features
 
 ### Core
+
 - **Knowledge Capture** — Rich form with title, content, type (Note/Link/Insight), tags, source URL, and file upload
 - **Smart Dashboard** — Searchable, filterable grid/list view with sorting, pagination, and skeleton loaders
 - **AI Summarization** — Auto-generate concise summaries for any knowledge item
@@ -18,6 +19,7 @@ An intelligent knowledge management platform that captures, organizes, and surfa
 - **Embeddable Widget** — iframe-ready search widget at `/embed`
 
 ### Bonus
+
 - **Graph Visualization** — React Flow-powered knowledge graph showing tag-based relationships
 - **Authentication** — NextAuth v5 with credentials (email/password)
 - **File Upload** — Drag-and-drop with react-dropzone (PDF, TXT, MD up to 10MB)
@@ -25,6 +27,7 @@ An intelligent knowledge management platform that captures, organizes, and surfa
 - **Accessibility** — ARIA labels, keyboard navigation, focus management
 
 ### UI/UX
+
 - **Dark Theme** — Beautiful dark design with violet/blue accents
 - **Framer Motion** — Scroll-triggered animations, parallax hero, hover effects
 - **Skeleton Loaders** — Every data-fetching state has loading UI
@@ -33,26 +36,27 @@ An intelligent knowledge management platform that captures, organizes, and surfa
 
 ---
 
-## 🏗️ Tech Stack
+## Tech Stack
 
-| Layer | Technology |
-|-------|-----------|
-| Framework | Next.js 16.1.6 (App Router, Turbopack) |
-| Language | TypeScript 5 |
-| Styling | Tailwind CSS v4 |
-| Animations | Framer Motion 12 |
-| Database | PostgreSQL via Neon |
-| ORM | Prisma 7 |
-| Auth | NextAuth v5 (beta) |
-| AI | OpenAI → Gemini → Ollama (fallback chain) |
-| Graph | @xyflow/react (React Flow) |
-| UI | Lucide icons, cmdk, react-hot-toast |
+| Layer      | Technology                                |
+| ---------- | ----------------------------------------- |
+| Framework  | Next.js 16.1.6 (App Router, Turbopack)    |
+| Language   | TypeScript 5                              |
+| Styling    | Tailwind CSS v4                           |
+| Animations | Framer Motion 12                          |
+| Database   | PostgreSQL via Neon                       |
+| ORM        | Prisma 7                                  |
+| Auth       | NextAuth v5 (beta)                        |
+| AI         | OpenAI → Gemini → Ollama (fallback chain) |
+| Graph      | @xyflow/react (React Flow)                |
+| UI         | Lucide icons, cmdk, react-hot-toast       |
 
 ---
 
-## 🚀 Getting Started
+## Getting Started
 
 ### Prerequisites
+
 - Node.js 18+
 - PostgreSQL database (local or [Neon](https://neon.tech))
 - At least one AI provider key (OpenAI, Gemini) or Ollama running locally
@@ -102,7 +106,7 @@ OLLAMA_URL=""            # Local fallback - llama3.2 + nomic-embed-text
 
 ---
 
-## 📁 Project Structure
+## Project Structure
 
 ```
 second-brain/
@@ -144,28 +148,28 @@ second-brain/
 
 ---
 
-## 🔌 API Reference
+## API Reference
 
 ### Authenticated Endpoints (require session)
 
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| GET | `/api/knowledge` | List items (search, filter, sort, paginate) |
-| POST | `/api/knowledge` | Create item (with optional AI enrichment) |
-| GET | `/api/knowledge/:id` | Get single item |
-| PUT | `/api/knowledge/:id` | Update item |
-| DELETE | `/api/knowledge/:id` | Delete item |
-| POST | `/api/ai/summarize` | Summarize content |
-| POST | `/api/ai/auto-tag` | Auto-tag content |
-| POST | `/api/ai/query` | Query knowledge base |
-| GET | `/api/tags` | List all tags with counts |
-| POST | `/api/upload` | Upload file |
+| Method | Endpoint             | Description                                 |
+| ------ | -------------------- | ------------------------------------------- |
+| GET    | `/api/knowledge`     | List items (search, filter, sort, paginate) |
+| POST   | `/api/knowledge`     | Create item (with optional AI enrichment)   |
+| GET    | `/api/knowledge/:id` | Get single item                             |
+| PUT    | `/api/knowledge/:id` | Update item                                 |
+| DELETE | `/api/knowledge/:id` | Delete item                                 |
+| POST   | `/api/ai/summarize`  | Summarize content                           |
+| POST   | `/api/ai/auto-tag`   | Auto-tag content                            |
+| POST   | `/api/ai/query`      | Query knowledge base                        |
+| GET    | `/api/tags`          | List all tags with counts                   |
+| POST   | `/api/upload`        | Upload file                                 |
 
 ### Public Endpoints (no auth required)
 
 ```bash
 # Query the knowledge base
-curl "https://your-app.vercel.app/api/public/brain/query?q=What+is+React"
+curl "https://sec-brain.niheshr.com/api/public/brain/query?q=What+is+React"
 
 # Response
 {
@@ -179,7 +183,7 @@ curl "https://your-app.vercel.app/api/public/brain/query?q=What+is+React"
 
 ```html
 <iframe
-  src="https://your-app.vercel.app/embed"
+  src="https://sec-brain.niheshr.com/embed"
   width="400"
   height="500"
   frameborder="0"
@@ -189,9 +193,9 @@ curl "https://your-app.vercel.app/api/public/brain/query?q=What+is+React"
 
 ---
 
-## 🏛️ Architecture
+## Architecture
 
-See the full documentation at [`/docs`](http://localhost:3000/docs) covering:
+See the full documentation at [`/docs`](https://sec-brain.niheshr.com/docs) covering:
 
 1. **Portable Architecture** — Layered design with swappable components (AI providers, database, auth)
 2. **Principles-Based UX** — 5 design principles: Progressive Disclosure, Contextual Intelligence, Graceful Degradation, Consistent Feedback, Keyboard-First
@@ -208,7 +212,7 @@ The system automatically selects the first available provider based on configure
 
 ---
 
-## 🚢 Deployment
+## Deployment
 
 ### Vercel + Neon
 
@@ -220,6 +224,6 @@ The system automatically selects the first available provider based on configure
 
 ---
 
-## 📄 License
+## License
 
 MIT

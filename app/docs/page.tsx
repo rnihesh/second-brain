@@ -1,10 +1,31 @@
-import { Brain, Layers, Sparkles, Bot, Globe, ArrowRight, Code, Database, Cpu, Shield } from "lucide-react";
+import {
+  Brain,
+  Layers,
+  Sparkles,
+  Bot,
+  Globe,
+  ArrowRight,
+  Code,
+  Database,
+  Cpu,
+  Shield,
+} from "lucide-react";
 
 export const metadata = {
   title: "Documentation | Second Brain",
 };
 
-function Section({ id, icon: Icon, title, children }: { id: string; icon: React.ElementType; title: string; children: React.ReactNode }) {
+function Section({
+  id,
+  icon: Icon,
+  title,
+  children,
+}: {
+  id: string;
+  icon: React.ElementType;
+  title: string;
+  children: React.ReactNode;
+}) {
   return (
     <section id={id} className="scroll-mt-24">
       <div className="flex items-center gap-3 mb-6">
@@ -13,7 +34,9 @@ function Section({ id, icon: Icon, title, children }: { id: string; icon: React.
         </div>
         <h2 className="text-2xl font-bold text-foreground">{title}</h2>
       </div>
-      <div className="space-y-4 text-foreground leading-relaxed">{children}</div>
+      <div className="space-y-4 text-foreground leading-relaxed">
+        {children}
+      </div>
     </section>
   );
 }
@@ -26,10 +49,18 @@ function CodeBlock({ children }: { children: string }) {
   );
 }
 
-function Principle({ number, title, description }: { number: number; title: string; description: string }) {
+function Principle({
+  number,
+  title,
+  description,
+}: {
+  number: number;
+  title: string;
+  description: string;
+}) {
   return (
     <div className="flex gap-4 p-4 rounded-lg bg-background border border-border">
-      <div className="flex-shrink-0 w-8 h-8 rounded-full bg-accent/20 text-accent flex items-center justify-center text-sm font-bold">
+      <div className="shrink-0 w-8 h-8 rounded-full bg-accent/20 text-accent flex items-center justify-center text-sm font-bold">
         {number}
       </div>
       <div>
@@ -53,14 +84,17 @@ export default function DocsPage() {
             </h1>
           </div>
           <p className="text-muted text-lg max-w-2xl">
-            A deep dive into the architectural decisions, design principles, and infrastructure
-            that power Second Brain.
+            A deep dive into the architectural decisions, design principles, and
+            infrastructure that power Second Brain.
           </p>
 
           {/* Quick nav */}
           <nav className="mt-8 flex flex-wrap gap-2">
             {[
-              { href: "#portable-architecture", label: "Portable Architecture" },
+              {
+                href: "#portable-architecture",
+                label: "Portable Architecture",
+              },
               { href: "#ux-principles", label: "UX Principles" },
               { href: "#agent-thinking", label: "Agent Thinking" },
               { href: "#infrastructure", label: "Infrastructure" },
@@ -78,21 +112,28 @@ export default function DocsPage() {
 
         <div className="space-y-16">
           {/* 1. Portable Architecture */}
-          <Section id="portable-architecture" icon={Layers} title="Portable Architecture">
+          <Section
+            id="portable-architecture"
+            icon={Layers}
+            title="Portable Architecture"
+          >
             <p>
-              Second Brain is built with a layered architecture that maintains clear separation of
-              concerns. Each layer can be swapped independently without affecting others.
+              Second Brain is built with a layered architecture that maintains
+              clear separation of concerns. Each layer can be swapped
+              independently without affecting others.
             </p>
 
             <div className="grid gap-4 mt-6">
               <div className="p-4 rounded-lg bg-surface border border-border">
                 <div className="flex items-center gap-2 mb-2">
                   <Globe className="w-4 h-4 text-accent" />
-                  <h4 className="font-semibold text-foreground">Presentation Layer</h4>
+                  <h4 className="font-semibold text-foreground">
+                    Presentation Layer
+                  </h4>
                 </div>
                 <p className="text-sm text-muted">
-                  React components with Next.js App Router. Swappable with any React framework
-                  or even a mobile app consuming the same API.
+                  React components with Next.js App Router. Swappable with any
+                  React framework or even a mobile app consuming the same API.
                 </p>
               </div>
 
@@ -106,9 +147,9 @@ export default function DocsPage() {
                   <h4 className="font-semibold text-foreground">API Layer</h4>
                 </div>
                 <p className="text-sm text-muted">
-                  Next.js API routes exposing RESTful endpoints. Can be replaced with Express,
-                  FastAPI, or any HTTP framework. Routes are thin — they validate input and
-                  delegate to services.
+                  Next.js API routes exposing RESTful endpoints. Can be replaced
+                  with Express, FastAPI, or any HTTP framework. Routes are thin
+                  — they validate input and delegate to services.
                 </p>
               </div>
 
@@ -119,12 +160,14 @@ export default function DocsPage() {
               <div className="p-4 rounded-lg bg-surface border border-border">
                 <div className="flex items-center gap-2 mb-2">
                   <Cpu className="w-4 h-4 text-accent" />
-                  <h4 className="font-semibold text-foreground">AI Service Layer</h4>
+                  <h4 className="font-semibold text-foreground">
+                    AI Service Layer
+                  </h4>
                 </div>
                 <p className="text-sm text-muted">
-                  Abstraction layer with provider interface. Supports OpenAI, Gemini, and Ollama
-                  with automatic fallback chain. Adding a new provider requires implementing one
-                  interface with 4 methods.
+                  Abstraction layer with provider interface. Supports OpenAI,
+                  Gemini, and Ollama with automatic fallback chain. Adding a new
+                  provider requires implementing one interface with 4 methods.
                 </p>
               </div>
 
@@ -138,14 +181,17 @@ export default function DocsPage() {
                   <h4 className="font-semibold text-foreground">Data Layer</h4>
                 </div>
                 <p className="text-sm text-muted">
-                  Prisma ORM with PostgreSQL. The schema is database-agnostic via Prisma — switching
-                  to MySQL, SQLite, or MongoDB requires only a datasource change.
+                  Prisma ORM with PostgreSQL. The schema is database-agnostic
+                  via Prisma — switching to MySQL, SQLite, or MongoDB requires
+                  only a datasource change.
                 </p>
               </div>
             </div>
 
             <div className="mt-6">
-              <h3 className="text-lg font-semibold text-foreground mb-3">AI Provider Interface</h3>
+              <h3 className="text-lg font-semibold text-foreground mb-3">
+                AI Provider Interface
+              </h3>
               <CodeBlock>{`interface AIProvider {
   summarize(content: string): Promise<string>;
   autoTag(content: string, existingTags: string[]): Promise<string[]>;
@@ -161,9 +207,14 @@ export class AnthropicProvider implements AIProvider {
           </Section>
 
           {/* 2. UX Principles */}
-          <Section id="ux-principles" icon={Sparkles} title="Principles-Based UX">
+          <Section
+            id="ux-principles"
+            icon={Sparkles}
+            title="Principles-Based UX"
+          >
             <p>
-              Every AI interaction in Second Brain is guided by these five design principles:
+              Every AI interaction in Second Brain is guided by these five
+              design principles:
             </p>
 
             <div className="space-y-3 mt-6">
@@ -198,63 +249,83 @@ export class AnthropicProvider implements AIProvider {
           {/* 3. Agent Thinking */}
           <Section id="agent-thinking" icon={Bot} title="Agent Thinking">
             <p>
-              Second Brain implements autonomous background processes that maintain and improve
-              the knowledge base over time:
+              Second Brain implements autonomous background processes that
+              maintain and improve the knowledge base over time:
             </p>
 
             <div className="grid gap-4 mt-6">
               <div className="p-4 rounded-lg bg-surface border border-border">
-                <h4 className="font-semibold text-foreground mb-2">Auto-Tagging Agent</h4>
+                <h4 className="font-semibold text-foreground mb-2">
+                  Auto-Tagging Agent
+                </h4>
                 <p className="text-sm text-muted">
-                  When a new knowledge item is created with the auto-tag option enabled, the system
-                  analyzes the content and suggests relevant tags. It prefers existing tags to maintain
-                  consistency, but creates new ones when the content introduces novel concepts.
+                  When a new knowledge item is created with the auto-tag option
+                  enabled, the system analyzes the content and suggests relevant
+                  tags. It prefers existing tags to maintain consistency, but
+                  creates new ones when the content introduces novel concepts.
                 </p>
               </div>
 
               <div className="p-4 rounded-lg bg-surface border border-border">
-                <h4 className="font-semibold text-foreground mb-2">Summarization Agent</h4>
+                <h4 className="font-semibold text-foreground mb-2">
+                  Summarization Agent
+                </h4>
                 <p className="text-sm text-muted">
-                  On-demand summarization generates concise 2-3 sentence summaries of knowledge items.
-                  Summaries are stored and can be regenerated if the content is updated, ensuring they
-                  stay current.
+                  On-demand summarization generates concise 2-3 sentence
+                  summaries of knowledge items. Summaries are stored and can be
+                  regenerated if the content is updated, ensuring they stay
+                  current.
                 </p>
               </div>
 
               <div className="p-4 rounded-lg bg-surface border border-border">
-                <h4 className="font-semibold text-foreground mb-2">Embedding Agent</h4>
+                <h4 className="font-semibold text-foreground mb-2">
+                  Embedding Agent
+                </h4>
                 <p className="text-sm text-muted">
-                  Vector embeddings are generated for each knowledge item, enabling semantic search.
-                  When content is updated, embeddings are regenerated to maintain search accuracy.
-                  The embedding model is configurable per provider.
+                  Vector embeddings are generated for each knowledge item,
+                  enabling semantic search. When content is updated, embeddings
+                  are regenerated to maintain search accuracy. The embedding
+                  model is configurable per provider.
                 </p>
               </div>
 
               <div className="p-4 rounded-lg bg-surface border border-border">
-                <h4 className="font-semibold text-foreground mb-2">Query Agent</h4>
+                <h4 className="font-semibold text-foreground mb-2">
+                  Query Agent
+                </h4>
                 <p className="text-sm text-muted">
-                  The conversational query system acts as an intelligent retrieval agent. It receives
-                  a question, searches the knowledge base for relevant context, and synthesizes an
-                  answer citing specific sources. It's available both through the UI and the public API.
+                  The conversational query system acts as an intelligent
+                  retrieval agent. It receives a question, searches the
+                  knowledge base for relevant context, and synthesizes an answer
+                  citing specific sources. It&apos;s available both through the
+                  UI and the public API.
                 </p>
               </div>
             </div>
           </Section>
 
           {/* 4. Infrastructure Mindset */}
-          <Section id="infrastructure" icon={Shield} title="Infrastructure Mindset">
+          <Section
+            id="infrastructure"
+            icon={Shield}
+            title="Infrastructure Mindset"
+          >
             <p>
-              Second Brain exposes its intelligence through a public API and embeddable widget,
-              enabling external systems to access your knowledge base.
+              Second Brain exposes its intelligence through a public API and
+              embeddable widget, enabling external systems to access your
+              knowledge base.
             </p>
 
             <div className="mt-6">
-              <h3 className="text-lg font-semibold text-foreground mb-3">Public API</h3>
+              <h3 className="text-lg font-semibold text-foreground mb-3">
+                Public API
+              </h3>
               <p className="text-sm text-muted mb-3">
                 Query your knowledge base programmatically:
               </p>
               <CodeBlock>{`# Query the knowledge base
-curl "https://your-app.vercel.app/api/public/brain/query?q=What%20do%20I%20know%20about%20React%20hooks"
+curl "https://sec-brain.niheshr.com/api/public/brain/query?q=What%20do%20I%20know%20about%20React%20hooks"
 
 # Response
 {
@@ -271,13 +342,15 @@ curl "https://your-app.vercel.app/api/public/brain/query?q=What%20do%20I%20know%
             </div>
 
             <div className="mt-8">
-              <h3 className="text-lg font-semibold text-foreground mb-3">Embeddable Widget</h3>
+              <h3 className="text-lg font-semibold text-foreground mb-3">
+                Embeddable Widget
+              </h3>
               <p className="text-sm text-muted mb-3">
                 Embed a search widget on any website:
               </p>
               <CodeBlock>{`<!-- Add to any HTML page -->
 <iframe
-  src="https://your-app.vercel.app/embed"
+  src="https://sec-brain.niheshr.com/embed"
   width="400"
   height="500"
   frameborder="0"
@@ -286,20 +359,62 @@ curl "https://your-app.vercel.app/api/public/brain/query?q=What%20do%20I%20know%
             </div>
 
             <div className="mt-8">
-              <h3 className="text-lg font-semibold text-foreground mb-3">Knowledge API Endpoints</h3>
+              <h3 className="text-lg font-semibold text-foreground mb-3">
+                Knowledge API Endpoints
+              </h3>
               <div className="space-y-2">
                 {[
-                  { method: "GET", path: "/api/knowledge", desc: "List items (auth required)" },
-                  { method: "POST", path: "/api/knowledge", desc: "Create item (auth required)" },
-                  { method: "GET", path: "/api/knowledge/:id", desc: "Get item (auth required)" },
-                  { method: "PUT", path: "/api/knowledge/:id", desc: "Update item (auth required)" },
-                  { method: "DELETE", path: "/api/knowledge/:id", desc: "Delete item (auth required)" },
-                  { method: "POST", path: "/api/ai/summarize", desc: "Summarize content (auth required)" },
-                  { method: "POST", path: "/api/ai/auto-tag", desc: "Auto-tag content (auth required)" },
-                  { method: "POST", path: "/api/ai/query", desc: "Query knowledge base (auth required)" },
-                  { method: "GET", path: "/api/public/brain/query", desc: "Public query (no auth)" },
+                  {
+                    method: "GET",
+                    path: "/api/knowledge",
+                    desc: "List items (auth required)",
+                  },
+                  {
+                    method: "POST",
+                    path: "/api/knowledge",
+                    desc: "Create item (auth required)",
+                  },
+                  {
+                    method: "GET",
+                    path: "/api/knowledge/:id",
+                    desc: "Get item (auth required)",
+                  },
+                  {
+                    method: "PUT",
+                    path: "/api/knowledge/:id",
+                    desc: "Update item (auth required)",
+                  },
+                  {
+                    method: "DELETE",
+                    path: "/api/knowledge/:id",
+                    desc: "Delete item (auth required)",
+                  },
+                  {
+                    method: "POST",
+                    path: "/api/ai/summarize",
+                    desc: "Summarize content (auth required)",
+                  },
+                  {
+                    method: "POST",
+                    path: "/api/ai/auto-tag",
+                    desc: "Auto-tag content (auth required)",
+                  },
+                  {
+                    method: "POST",
+                    path: "/api/ai/query",
+                    desc: "Query knowledge base (auth required)",
+                  },
+                  {
+                    method: "GET",
+                    path: "/api/public/brain/query",
+                    desc: "Public query (no auth)",
+                  },
                   { method: "GET", path: "/api/tags", desc: "List all tags" },
-                  { method: "POST", path: "/api/upload", desc: "Upload file (auth required)" },
+                  {
+                    method: "POST",
+                    path: "/api/upload",
+                    desc: "Upload file (auth required)",
+                  },
                 ].map((endpoint) => (
                   <div
                     key={endpoint.path + endpoint.method}
@@ -310,15 +425,17 @@ curl "https://your-app.vercel.app/api/public/brain/query?q=What%20do%20I%20know%
                         endpoint.method === "GET"
                           ? "bg-accent/20 text-accent"
                           : endpoint.method === "POST"
-                          ? "bg-border text-foreground"
-                          : endpoint.method === "PUT"
-                          ? "bg-accent/10 text-accent-hover"
-                          : "bg-[#c47c7c]/20 text-[#c47c7c]"
+                            ? "bg-border text-foreground"
+                            : endpoint.method === "PUT"
+                              ? "bg-accent/10 text-accent-hover"
+                              : "bg-[#c47c7c]/20 text-[#c47c7c]"
                       }`}
                     >
                       {endpoint.method}
                     </span>
-                    <code className="text-foreground font-mono">{endpoint.path}</code>
+                    <code className="text-foreground font-mono">
+                      {endpoint.path}
+                    </code>
                     <span className="text-dim ml-auto">{endpoint.desc}</span>
                   </div>
                 ))}
