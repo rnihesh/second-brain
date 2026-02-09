@@ -92,20 +92,19 @@ function AiChat({ className, onClose }: AiChatProps) {
       )}
     >
       {/* Header - only visible on mobile */}
-      <div className="flex items-center justify-between border-b border-border p-4 md:hidden">
+      <div className="flex items-center justify-between border-b border-border p-4 md:hidden bg-surface sticky top-0 z-10 shadow-sm">
         <div className="flex items-center gap-2">
           <Bot className="h-5 w-5 text-accent" />
           <h2 className="font-semibold text-foreground">AI Assistant</h2>
         </div>
-        {onClose && (
-          <button
-            type="button"
-            onClick={onClose}
-            className="flex h-8 w-8 items-center justify-center rounded-lg text-muted hover:bg-surface-hover hover:text-foreground transition-colors cursor-pointer"
-          >
-            <X className="h-5 w-5" />
-          </button>
-        )}
+        <button
+          type="button"
+          onClick={onClose || (() => {})}
+          className="flex h-10 w-10 items-center justify-center rounded-lg bg-accent text-background hover:bg-accent-hover transition-all cursor-pointer shadow-md active:scale-95"
+          aria-label="Close chat"
+        >
+          <X className="h-5 w-5" />
+        </button>
       </div>
 
       {/* Messages */}

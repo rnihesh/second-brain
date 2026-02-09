@@ -261,18 +261,27 @@ function DashboardContent() {
         </div>
       </div>
 
-      {/* AI Chat Toggle */}
-      <button
-        type="button"
-        onClick={() => setChatOpen(!chatOpen)}
-        className="fixed bottom-4 right-4 z-30 flex h-12 w-12 sm:h-14 sm:w-14 sm:bottom-6 sm:right-6 items-center justify-center rounded-full bg-accent text-background transition-all hover:bg-accent-hover hover:scale-105 cursor-pointer shadow-lg"
-      >
-        {chatOpen ? (
-          <X className="h-5 w-5" />
-        ) : (
+      {/* AI Chat Toggle - hidden on mobile when chat is open */}
+      {!chatOpen && (
+        <button
+          type="button"
+          onClick={() => setChatOpen(true)}
+          className="fixed bottom-4 right-4 z-30 flex h-12 w-12 sm:h-14 sm:w-14 sm:bottom-6 sm:right-6 items-center justify-center rounded-full bg-accent text-background transition-all hover:bg-accent-hover hover:scale-105 cursor-pointer shadow-lg"
+        >
           <MessageCircle className="h-5 w-5" />
-        )}
-      </button>
+        </button>
+      )}
+      
+      {/* Desktop-only close button when chat is open */}
+      {chatOpen && (
+        <button
+          type="button"
+          onClick={() => setChatOpen(false)}
+          className="hidden md:flex fixed bottom-4 right-4 z-30 h-12 w-12 sm:h-14 sm:w-14 sm:bottom-6 sm:right-6 items-center justify-center rounded-full bg-accent text-background transition-all hover:bg-accent-hover hover:scale-105 cursor-pointer shadow-lg"
+        >
+          <X className="h-5 w-5" />
+        </button>
+      )}
 
       {/* AI Chat Panel */}
       <AnimatePresence>
@@ -284,9 +293,10 @@ function DashboardContent() {
             transition={{ duration: 0.2 }}
             className="fixed inset-0 z-30 bg-background md:inset-auto md:bottom-24 md:right-6 md:left-auto md:w-96 md:bg-transparent"
           >
-            <AiChat className="h-full md:h-auto" onClose={() => setChatOpen(false)} />
+            <AiChat className="h-full md:h-[600px]" onClose={() => setChatOpen(false)} />
           </motion.div>
-        )}\n      </AnimatePresence>
+        )}
+      </AnimatePresence>
     </div>
   );
 }
