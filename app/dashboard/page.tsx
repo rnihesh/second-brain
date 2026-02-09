@@ -291,7 +291,7 @@ function DashboardContent() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.2 }}
-            className="fixed inset-0 z-30 bg-background md:inset-auto md:bottom-24 md:right-6 md:left-auto md:w-96 md:bg-transparent"
+            className="fixed inset-0 top-16 z-40 bg-background md:inset-auto md:top-auto md:bottom-24 md:right-6 md:left-auto md:w-96 md:bg-transparent md:z-30"
           >
             <AiChat className="h-full md:h-[600px]" onClose={() => setChatOpen(false)} />
           </motion.div>
