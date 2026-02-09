@@ -90,8 +90,12 @@ Open [http://localhost:3000](http://localhost:3000) in your browser.
 ### Environment Variables
 
 ```env
-# Database (required)
-DATABASE_URL="postgresql://user:password@localhost:5432/secondbrain"
+# Database (required) - Use Neon pooled connection with timeout params
+# Make sure hostname has -pooler for the pooled connection
+DATABASE_URL="postgresql://user:password@ep-xxx-pooler.us-east-2.aws.neon.tech/dbname?sslmode=require&connect_timeout=15&pool_timeout=15"
+
+# Direct connection for Prisma CLI (migrations, db push) - no pooler
+DIRECT_URL="postgresql://user:password@ep-xxx.us-east-2.aws.neon.tech/dbname?sslmode=require&connect_timeout=15"
 
 # NextAuth (required)
 NEXTAUTH_URL="http://localhost:3000"
