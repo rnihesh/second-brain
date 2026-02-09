@@ -4,6 +4,13 @@ An intelligent knowledge management platform that captures, organizes, and surfa
 
 ---
 
+### Output GIF
+<img src=/public/output.gif>
+
+Screeshots at : [Screenshots](/screenshots)
+
+---
+
 ## Features
 
 ### Core
@@ -192,6 +199,8 @@ curl "https://sec-brain.niheshr.com/api/public/brain/query?q=What+is+React"
   style="border-radius: 12px;"
 ></iframe>
 ```
+<img src="/public/screenshots/Widget0.png">
+<img src="/public/screenshots/Widget1.png">
 
 ---
 
