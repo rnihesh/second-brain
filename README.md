@@ -4,40 +4,61 @@ An intelligent knowledge management platform that captures, organizes, and surfa
 
 ---
 
-### Output GIF
-<img src=/public/output.gif>
+## Demo
 
-Screeshots at : [Screenshots](/screenshots)
+<p align="center">
+  <img src="public/output.gif" alt="Second Brain Demo" width="100%">
+</p>
 
 ---
 
 ## Features
 
-### Core
+### Core Features
+
+<p align="center">
+  <img src="public/screenshots/Screenshot 2026-02-09 at 7.33.28 PM.png" alt="Dashboard View" width="48%">&nbsp;&nbsp;<img src="public/screenshots/Screenshot 2026-02-09 at 7.33.35 PM.png" alt="Knowledge Capture" width="48%">
+</p>
 
 - **Knowledge Capture** — Rich form with title, content, type (Note/Link/Insight), tags, source URL, and file upload
 - **Smart Dashboard** — Searchable, filterable grid/list view with sorting, pagination, and skeleton loaders
 - **AI Summarization** — Auto-generate concise summaries for any knowledge item
 - **AI Auto-Tagging** — Intelligently categorize content with suggested tags
 - **Conversational Query** — Ask natural language questions answered from your knowledge base
-- **Public API** — `GET /api/public/brain/query?q=...` returns JSON answers with sources
-- **Embeddable Widget** — iframe-ready search widget at `/embed`
 
-### Bonus
+<p align="center"><img src="public/screenshots/Screenshot 2026-02-09 at 7.33.43 PM.png" alt="Knowledge Graph">
+</p>
+<p align="center">
+  <img src="public/screenshots/Screenshot 2026-02-09 at 7.34.49 PM.png" alt="AI Query Interface" width="48%" height="800px">
+</p>
+
+### Advanced Features
 
 - **Graph Visualization** — React Flow-powered knowledge graph showing tag-based relationships
-- **Authentication** — NextAuth v5 with credentials (email/password)
+- **Authentication** — NextAuth v5 with Google OAuth and email/password credentials
 - **File Upload** — Drag-and-drop with react-dropzone (PDF, TXT, MD up to 10MB)
 - **Command Palette** — `⌘K` search shortcut in the navbar
-- **Accessibility** — ARIA labels, keyboard navigation, focus management
+- **Public API** — `GET /api/public/brain/query?q=...` returns JSON answers with sources
+- **Embeddable Widget** — iframe-ready search widget
+
+<p align="center">
+  <img src="public/screenshots/Screenshot 2026-02-09 at 7.34.03 PM.png" alt="Docs" width="48%">&nbsp;&nbsp;<img src="public/screenshots/Screenshot 2026-02-09 at 7.33.51 PM.png" alt="CMD+K" width="48%">
+</p>
 
 ### UI/UX
+
+<p align="center">
+  <img src="public/screenshots/Screenshot 2026-02-09 at 7.32.27 PM.png" alt="Theme Interface">
+  </p>
+<p align="center"><img src="public/screenshots/Screenshot 2026-02-09 at 8.05.40 PM.png" alt="Responsive Design" width="48%">
+</p>
 
 - **Dark Theme** — Beautiful dark design with violet/blue accents
 - **Framer Motion** — Scroll-triggered animations, parallax hero, hover effects
 - **Skeleton Loaders** — Every data-fetching state has loading UI
 - **Micro-interactions** — Intentional hover states, transitions, and visual feedback
-- **Responsive** — Desktop-first, mobile-friendly
+- **Responsive** — Desktop-first, mobile-friendly design
+- **Accessibility** — ARIA labels, keyboard navigation, focus management
 
 ---
 
@@ -66,7 +87,7 @@ Screeshots at : [Screenshots](/screenshots)
 - PostgreSQL database (local or [Neon](https://neon.tech))
 - At least one AI provider key (OpenAI, Gemini) or Ollama running locally
 
-### Setup
+### Quick Setup
 
 ```bash
 # 1. Clone the repository
@@ -199,8 +220,10 @@ curl "https://sec-brain.niheshr.com/api/public/brain/query?q=What+is+React"
   style="border-radius: 12px;"
 ></iframe>
 ```
-<img src="/public/screenshots/Widget0.png">
-<img src="/public/screenshots/Widget1.png">
+
+<p align="center">
+  <img src="public/screenshots/Widget0.png" alt="Widget Light Mode" width="48%">&nbsp;&nbsp;<img src="public/screenshots/Widget1.png" alt="Widget Dark Mode" width="48%">
+</p>
 
 ---
 
