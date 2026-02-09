@@ -11,6 +11,13 @@ An intelligent knowledge management platform that captures, organizes, and surfa
 </p>
 
 ---
+### Flow
+<p align="center">
+  <img src="public/flow/flow.svg" alt="Flow" width="48%">&nbsp;&nbsp;<img src="public/flow/arch.svg" alt="Architecture" width="48%">
+</p>
+
+
+---
 
 ## Features
 
