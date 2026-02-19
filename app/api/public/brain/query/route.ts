@@ -1,9 +1,15 @@
 import { NextRequest, NextResponse } from "next/server";
 import prisma from "@/lib/db";
 import { getAI } from "@/lib/ai/provider";
+import { auth } from "@/lib/auth";
 
 export async function GET(req: NextRequest) {
   try {
+    const session = await auth();
+    if (!session?.user?.id) {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
+
     const question = req.nextUrl.searchParams.get("q");
 
     if (!question) {
@@ -16,6 +22,7 @@ export async function GET(req: NextRequest) {
     type KnowledgeSnippet = { id: string; title: string; content: string };
 
     const items: KnowledgeSnippet[] = await prisma.knowledgeItem.findMany({
+      where: { userId: session.user.id },
       orderBy: { createdAt: "desc" },
       take: 100,
       select: { id: true, title: true, content: true },

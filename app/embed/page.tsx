@@ -1,7 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import { Search, Brain, ExternalLink, Loader2 } from "lucide-react";
+import { useSession } from "next-auth/react";
+import { Search, Brain, ExternalLink, Loader2, Lock } from "lucide-react";
 
 interface Source {
   id: string;
@@ -10,6 +11,7 @@ interface Source {
 }
 
 export default function EmbedPage() {
+  const { data: session, status } = useSession();
   const [query, setQuery] = useState("");
   const [answer, setAnswer] = useState("");
   const [sources, setSources] = useState<Source[]>([]);
@@ -26,6 +28,11 @@ export default function EmbedPage() {
       const res = await fetch(
         `/api/public/brain/query?q=${encodeURIComponent(query)}`,
       );
+      if (res.status === 401) {
+        setAnswer("Please sign in to search your knowledge base.");
+        setSources([]);
+        return;
+      }
       const data = await res.json();
       setAnswer(data.answer || "No answer found.");
       setSources(data.sources || []);
@@ -37,6 +44,43 @@ export default function EmbedPage() {
     }
   };
 
+  // Show loading state while checking session
+  if (status === "loading") {
+    return (
+      <div className="min-h-screen bg-background text-foreground p-4">
+        <div className="max-w-md mx-auto flex items-center justify-center py-8">
+          <Loader2 className="w-5 h-5 text-accent animate-spin" />
+          <span className="ml-2 text-sm text-muted">Loading...</span>
+        </div>
+      </div>
+    );
+  }
+
+  // Show login prompt if not authenticated
+  if (!session?.user) {
+    return (
+      <div className="min-h-screen bg-background text-foreground p-4">
+        <div className="max-w-md mx-auto">
+          {/* Header */}
+          <div className="flex items-center gap-2 mb-4">
+            <Brain className="w-5 h-5 text-accent" />
+            <h1 className="text-lg font-semibold">Second Brain</h1>
+          </div>
+
+          <div className="flex flex-col items-center justify-center py-12">
+            <Lock className="w-12 h-12 text-dim mb-4" />
+            <h2 className="text-lg font-medium text-foreground mb-2">
+              Authentication Required
+            </h2>
+            <p className="text-sm text-dim text-center">
+              Please sign in to access your knowledge base.
+            </p>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="min-h-screen bg-background text-foreground p-4">
       <div className="max-w-md mx-auto">
@@ -44,14 +88,6 @@ export default function EmbedPage() {
         <div className="flex items-center gap-2 mb-4">
           <Brain className="w-5 h-5 text-accent" />
           <h1 className="text-lg font-semibold">Second Brain</h1>
-        </div>
-
-        {/* Assignment Notice */}
-        <div className="mb-4 p-3 bg-amber-500/10 border border-amber-500/30 rounded-lg">
-          <p className="text-xs text-amber-400 text-center">
-            Currently for assignment purpose, all knowledge is public of all
-            users.
-          </p>
         </div>
 
         {/* Search */}
